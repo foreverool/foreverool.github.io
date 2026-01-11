@@ -1,4 +1,71 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>foreverool's blog</title><link>https://foreverool.github.io/</link><description>Recent content on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 11 Jan 2026 21:33:15 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Install Theme</title><link>https://foreverool.github.io/posts/deploy-hugo-blog/install-theme/</link><pubDate>Sun, 11 Jan 2026 21:33:15 +0800</pubDate><guid>https://foreverool.github.io/posts/deploy-hugo-blog/install-theme/</guid><description>&lt;h1 id="hugo安装主题"&gt;hugo安装主题&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>foreverool's blog</title><link>https://foreverool.github.io/</link><description>Recent content on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 12 Jan 2026 06:23:32 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Deploy to Github</title><link>https://foreverool.github.io/posts/deploy-hugo-blog/deploy-to-github/</link><pubDate>Mon, 12 Jan 2026 06:23:32 +0800</pubDate><guid>https://foreverool.github.io/posts/deploy-hugo-blog/deploy-to-github/</guid><description>&lt;h1 id="将hugo创建的博客使用github-pages发布网站"&gt;将hugo创建的博客使用GitHub Pages发布网站&lt;/h1&gt;
+&lt;p&gt;&lt;img src="https://foreverool.github.io/images/posts/deploy-hugo-blog/deploy-to-github/image-20260112045208111.png" alt="image-20260112045208111"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font color=" #BA55D3"&gt;&lt;b&gt;指定Repository name为 &amp;lt;your_github_username&amp;gt;.github.io&lt;/b&gt;&lt;/font&gt; 这是必须，不然GitHub Pages没有办法运行你的博客页面。&lt;/p&gt;
+&lt;p&gt;接下来在创建gh-pages分支：&lt;/p&gt;
+&lt;p&gt;​ 首先告诉你为什么要创建gh-pages分支&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;由于我们需要将hugo创建的博客根目录发布到main分支上，但是该目录Github Pages是没办法直接将该部分内容发布到&amp;lt;your_github_username&amp;gt;.github.io网站上去的。只有该目录下的public才能让Github Pages识别到你的网站上。&lt;/li&gt;
+&lt;li&gt;当然也可以直接将public目录上传到main分支上，不创建gh-pages分支，但是这么做有一个缺点就是，你网站的根目录配置文件，主题文件等内容都没有托管到Github上，你只能依赖你本地的项目去发布文章，修改网页，如果你换了&lt;/li&gt;
+&lt;li&gt;最重要的是配置文件主题等内容与发布内容分离，main分支主要是hugo以及文章主题的内容，而gh-pages分支就是保存hugo根据你的配置数据等内容产生的静态文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;​ 设备，就没办法发布文章了。所以这也是为什么要再创建一个gh-pages分支，该分支主要保存根目录下内容，并且将public的内容也放到根目录，这样每次提交main的时候，让Github Pages 安装hugo以及主题需要的资源，然后生成public目录就行了。&lt;/p&gt;
+&lt;p&gt;创建gh-pages分支&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-she" data-lang="she"&gt;# 创建gh-pages分支
+git checkout -b gh-pages
+#这块最好是在项目搭建最开始，这样我们的gh-pages分支是干净的什么都没有，如果根目录已经有文件了 也没事直接add即可
+git add .
+git commit -m &amp;#34;添加分支&amp;#34;
+#将当前根目录push到Github上面
+git push -u origin gh-pages
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;创建自动化部署文件&lt;/p&gt;
+&lt;p&gt;&lt;font color=" #BA55D3"&gt;&lt;b&gt;在根目录创建.github目录，在.github目录创建workflows目录，在workflows目录下创建deploy.yml文件&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://foreverool.github.io/images/posts/deploy-hugo-blog/deploy-to-github/image-20260112061547254.png" alt="image-20260112061547254"&gt;&lt;/p&gt;
+&lt;p&gt;然后将下方内容复制到你的deploy.ymml文件中&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-yml" data-lang="yml"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;name&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;Deploy to Github Pages&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# run when a commit is pushed to &amp;#34;source&amp;#34; branch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;on&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;push&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;branches&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#ae81ff"&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;jobs&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;deploy&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;runs-on&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;ubuntu-latest&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;steps&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# checkout to the commit that has been pushed&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#f92672"&gt;uses&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;actions/checkout@v4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#f92672"&gt;name&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;Setup Hugo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;uses&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;peaceiris/actions-hugo@v3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;hugo-version&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#39;latest&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;extended&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#f92672"&gt;name&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;Update Hugo Modules&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;run&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;hugo mod tidy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#f92672"&gt;name&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;Setup Node&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;uses&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;actions/setup-node@v4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;node-version&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;20&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#f92672"&gt;name&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;Install node modules&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;run&lt;/span&gt;: |&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; hugo mod npm pack
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; npm install&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#f92672"&gt;name&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;Build&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;run&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;hugo --minify&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# push the generated content into the `gh-pages` branch.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#f92672"&gt;name&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;Deploy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;uses&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;peaceiris/actions-gh-pages@v4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;github_token&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;${{ secrets.GITHUB_TOKEN }}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;publish_branch&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;gh-pages&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;publish_dir&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;./public&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后将该目录上传到你的main分支下。&lt;/p&gt;</description></item><item><title>Install Theme</title><link>https://foreverool.github.io/posts/deploy-hugo-blog/install-theme/</link><pubDate>Sun, 11 Jan 2026 21:33:15 +0800</pubDate><guid>https://foreverool.github.io/posts/deploy-hugo-blog/install-theme/</guid><description>&lt;h1 id="hugo安装主题"&gt;hugo安装主题&lt;/h1&gt;
 &lt;p&gt;在安装主题之前，你需要下载&lt;code&gt;git&lt;/code&gt;,&lt;code&gt;node.js&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;接下来有关主题的安装，以及发布到Github Pages上都是默认安装了git、node.js。&lt;/p&gt;
 &lt;h2 id="选择主题"&gt;选择主题&lt;/h2&gt;
