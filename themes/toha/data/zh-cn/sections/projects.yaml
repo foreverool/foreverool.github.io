@@ -1,0 +1,31 @@
+# section information
+section:
+  name: Projects
+  id: projects
+  enable: true
+  weight: 5
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+
+buttons:
+- name: All
+  filter: "all"
+- name: 简单的小项目
+  filter: "简单的小项目"
+- name: 微服务项目
+  filter: "microservice"
+- name: 其他
+  filter: "others"
+
+
+projects:
+- name: 后台管理系统
+  logo: 
+  role: author
+  timeline: ""
+  repo: 
+  # url: ""
+  summary: 后台管理系统 
+  tags: [ "简单的小项目"]

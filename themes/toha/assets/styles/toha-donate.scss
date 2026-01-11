@@ -1,0 +1,147 @@
+/* 打赏功能独立CSS - 前缀 toha-donate- 避免冲突 */
+.toha-donate-coffee-btn {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  cursor: pointer;
+  z-index: 9999; /* 高于主题其他元素，不被遮挡 */
+  transition: all 0.3s ease;
+  animation: toha-donate-float 3s ease-in-out infinite;
+}
+
+.toha-donate-coffee-btn img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .toha-donate-coffee-btn img {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+.toha-donate-coffee-btn:hover {
+  transform: scale(1.1);
+}
+
+@keyframes toha-donate-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 模态窗口遮罩 */
+.toha-donate-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.toha-donate-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 模态窗口内容 */
+.toha-donate-modal-content {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  max-width: 24rem;
+  width: 90%;
+  margin: 0 auto;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.toha-donate-modal.active .toha-donate-modal-content {
+  transform: scale(1);
+}
+
+/* 模态窗口头部 */
+.toha-donate-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 1rem;
+}
+
+.toha-donate-modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #6F4E37; /* 贴近Toha主题暖色调，不突兀 */
+  margin: 0;
+}
+
+.toha-donate-close-btn {
+  font-size: 1.5rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  line-height: 1;
+}
+
+.toha-donate-close-btn:hover {
+  color: #1f2937;
+}
+
+/* 支付方式容器 */
+.toha-donate-payment-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+/* 支付项 */
+.toha-donate-payment-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.toha-donate-payment-item:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.toha-donate-payment-item img {
+  width: 8rem;
+  height: 8rem;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.toha-donate-payment-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+  text-align: center;
+}
+
+/* 底部描述 */
+.toha-donate-desc {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 1rem 0 0 0;
+}

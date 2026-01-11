@@ -1,0 +1,191 @@
+// 打赏按钮和模态窗口样式
+// 确保与Toha主题的明暗模式兼容
+
+// 浮动咖啡按钮
+.coffee-button {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    cursor: pointer;
+    z-index: 50;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: scale(1.1);
+    }
+    
+    img {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        // 适配暗色模式
+        @media (prefers-color-scheme: dark) {
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+        }
+    }
+    
+    // 响应式调整
+    @media (max-width: 768px) {
+        right: 1rem;
+        bottom: 1rem;
+        
+        img {
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+    }
+}
+
+// 浮动动画
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+// 模态窗口
+.tip-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    
+    &.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    .tip-content {
+        background-color: #ffffff;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        max-width: 28rem;
+        width: 100%;
+        margin: 1rem;
+        transform: scale(0.95);
+        transition: transform 0.3s ease;
+        
+        // 适配暗色模式
+        @media (prefers-color-scheme: dark) {
+            background-color: #1e293b;
+            color: #f8fafc;
+        }
+        
+        .tip-modal.active & {
+            transform: scale(1);
+        }
+        
+        .tip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            
+            .tip-title {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: #6F4E37;
+                
+                // 适配暗色模式
+                @media (prefers-color-scheme: dark) {
+                    color: #d2b48c;
+                }
+            }
+            
+            .close-button {
+                color: #64748b;
+                cursor: pointer;
+                transition: color 0.2s ease;
+                
+                &:hover {
+                    color: #334155;
+                }
+                
+                // 适配暗色模式
+                @media (prefers-color-scheme: dark) {
+                    color: #94a3b8;
+                    
+                    &:hover {
+                        color: #cbd5e1;
+                    }
+                }
+            }
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            
+            // 响应式调整
+            @media (min-width: 640px) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .payment-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 0.5rem;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                
+                &:hover {
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                    transform: translateY(-2px);
+                }
+                
+                // 适配暗色模式
+                @media (prefers-color-scheme: dark) {
+                    border-color: #334155;
+                    
+                    &:hover {
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                    }
+                }
+                
+                img {
+                    width: 8rem;
+                    height: 8rem;
+                    object-fit: contain;
+                    margin-bottom: 0.5rem;
+                }
+                
+                .payment-name {
+                    font-weight: 500;
+                    text-align: center;
+                }
+            }
+        }
+        
+        .tip-thank {
+            text-align: center;
+            color: #64748b;
+            margin-top: 1rem;
+            
+            // 适配暗色模式
+            @media (prefers-color-scheme: dark) {
+                color: #94a3b8;
+            }
+        }
+    }
+}

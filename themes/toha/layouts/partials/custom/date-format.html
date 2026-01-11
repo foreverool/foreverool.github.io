@@ -1,0 +1,62 @@
+{{/*
+自定义日期格式模板
+用于在Toha主题中显示中文格式的日期
+
+使用方法：
+1. 将此文件复制到您的Hugo网站的layouts/partials/custom/目录下
+2. 在需要显示日期的地方引入此模板，例如：
+   {{ partial "custom/date-format.html" (dict "date" .Date "format" "full") }}
+
+参数说明：
+- date: 要格式化的日期对象（必需）
+- format: 日期格式类型（可选，默认值："medium"）
+  - "full": 完整格式，例如：2023年1月15日 星期日
+  - "long": 长格式，例如：2023年1月15日
+  - "medium": 中等格式，例如：2023年1月15日
+  - "short": 短格式，例如：2023-01-15
+  - "month_day": 月日格式，例如：1月15日
+  - "year_month": 年月格式，例如：2023年1月
+  - "custom": 自定义格式，需要同时提供customFormat参数
+- customFormat: 自定义格式字符串（当format为"custom"时使用）
+- showWeekday: 是否显示星期（可选，默认值：false）
+*/}}
+
+{{- $date := .date -}}
+{{- $format := .format | default "medium" -}}
+{{- $customFormat := .customFormat | default "" -}}
+{{- $showWeekday := .showWeekday | default false -}}
+
+{{- if not $date -}}
+  {{- errorf "日期格式模板需要提供date参数" -}}
+  {{- return -}}
+{{- end -}}
+
+{{- /* 格式化日期 */ -}}
+{{- $formattedDate := "" -}}
+
+{{- if eq $format "custom" -}}
+  {{- /* 自定义格式 */ -}}
+  {{- $formattedDate = $date.Format $customFormat -}}
+{{- else if eq $format "short" -}}
+  {{- /* 短格式：2023-01-15 */ -}}
+  {{- $formattedDate = $date.Format "2006-01-02" -}}
+{{- else if eq $format "month_day" -}}
+  {{- /* 月日格式：1月15日 */ -}}
+  {{- $formattedDate = printf "%d月%d日" $date.Month $date.Day -}}
+{{- else if eq $format "year_month" -}}
+  {{- /* 年月格式：2023年1月 */ -}}
+  {{- $formattedDate = printf "%d年%d月" $date.Year $date.Month -}}
+{{- else -}}
+  {{- /* 长格式和中等格式：2023年1月15日 */ -}}
+  {{- $formattedDate = printf "%d年%d月%d日" $date.Year $date.Month $date.Day -}}
+{{- end -}}
+
+{{- /* 如果需要显示星期 */ -}}
+{{- if $showWeekday -}}
+  {{- $weekday := $date.Weekday -}}
+  {{- $weekdayName := i18n (printf "long_weekday_%d" $weekday) -}}
+  {{- $formattedDate = printf "%s %s" $formattedDate $weekdayName -}}
+{{- end -}}
+
+{{- /* 返回格式化后的日期 */ -}}
+{{ $formattedDate }}

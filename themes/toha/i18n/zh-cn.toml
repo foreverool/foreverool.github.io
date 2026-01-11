@@ -1,0 +1,231 @@
+# More documentation here: https://github.com/nicksnyder/go-i18n
+[home]
+other = "主页"
+
+[posts]
+other = "文章"
+
+[toc_heading]
+other = "目录"
+
+[tags]
+other = "标签"
+
+[categories]
+other = "类别"
+
+[at]
+other = "at"
+
+[resume]
+other = "我的简历"
+
+[navigation]
+other = "导航"
+
+[contact_me]
+other = "联系方式:"
+
+[email]
+other = "邮箱"
+
+[phone]
+other = "电话"
+
+[newsletter_text]
+other = "通过电子邮件接收最新信息"
+
+[newsletter_input_placeholder]
+other = "填入 E-mail"
+
+[newsletter_warning]
+other = "输入您的电子邮件地址，即表示您同意接收本网站的时事通讯"
+
+[submit]
+other = "提交"
+
+[hugoAttributionText]
+other = "Powered by"
+
+[prev]
+other = "上一篇"
+
+[next]
+other = "下一篇"
+
+[share_on]
+other = "分享"
+
+[improve_this_page]
+other = "改善此页面"
+
+[out_of]
+other = "/"
+
+[publications]
+other = "刊物"
+
+[taken_courses]
+other = "选修课程"
+
+[course_name]
+other = "课程名"
+
+[total_credit]
+other = "满分"
+
+[obtained_credit]
+other = "获得分数"
+
+[extracurricular_activities]
+other = "课外活动"
+
+[show_more]
+other = "查看更多"
+
+[show_less]
+other = "显示较少"
+
+[responsibilities]
+other = "职责:"
+
+[present]
+other = "至今"
+
+[comments_javascript]
+other = "请启用 JavaScript 以查看"
+
+[comments_by]
+other = "评论支持 by"
+
+[read]
+other = "阅读"
+
+[project_star]
+other = "Star"
+
+[project_details]
+other = "详情"
+
+[err_404]
+other = "您查找的页面已私奔。"
+
+[more]
+other = "更多的"
+
+[view_certificate]
+other = "查看证书"
+
+[notes]
+other = "笔记"
+
+[disclaimer_text]
+other = "免责声明"
+
+[search]
+other = "搜索"
+
+[minute]
+one = "分钟"
+other = "分钟"
+
+
+# 中文(简体)语言文件（TOML格式）
+# 用于Toha主题的时间显示格式修改
+
+# 日期格式
+[date_format]
+  other = "2006年01月02日"
+
+# 月份名称(长格式)
+[long_month_1]
+  other = "一月"
+[long_month_2]
+  other = "二月"
+[long_month_3]
+  other = "三月"
+[long_month_4]
+  other = "四月"
+[long_month_5]
+  other = "五月"
+[long_month_6]
+  other = "六月"
+[long_month_7]
+  other = "七月"
+[long_month_8]
+  other = "八月"
+[long_month_9]
+  other = "九月"
+[long_month_10]
+  other = "十月"
+[long_month_11]
+  other = "十一月"
+[long_month_12]
+  other = "十二月"
+
+# 月份名称(短格式)
+[short_month_1]
+  other = "1月"
+[short_month_2]
+  other = "2月"
+[short_month_3]
+  other = "3月"
+[short_month_4]
+  other = "4月"
+[short_month_5]
+  other = "5月"
+[short_month_6]
+  other = "6月"
+[short_month_7]
+  other = "7月"
+[short_month_8]
+  other = "8月"
+[short_month_9]
+  other = "9月"
+[short_month_10]
+  other = "10月"
+[short_month_11]
+  other = "11月"
+[short_month_12]
+  other = "12月"
+
+# 星期名称(长格式)
+[long_weekday_0]
+  other = "星期日"
+[long_weekday_1]
+  other = "星期一"
+[long_weekday_2]
+  other = "星期二"
+[long_weekday_3]
+  other = "星期三"
+[long_weekday_4]
+  other = "星期四"
+[long_weekday_5]
+  other = "星期五"
+[long_weekday_6]
+  other = "星期六"
+
+# 星期名称(短格式)
+[short_weekday_0]
+  other = "日"
+[short_weekday_1]
+  other = "一"
+[short_weekday_2]
+  other = "二"
+[short_weekday_3]
+  other = "三"
+[short_weekday_4]
+  other = "四"
+[short_weekday_5]
+  other = "五"
+[short_weekday_6]
+  other = "六"
+
+# 发布日期相关文本
+[published_on]
+  other = "发布于"
+
+# 最后修改日期相关文本
+[last_modified_on]
+  other = "最后修改于"
+

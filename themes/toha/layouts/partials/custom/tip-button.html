@@ -1,0 +1,76 @@
+{{- if .Site.Params.tipButton.enable | default false -}}
+<!-- 浮动咖啡打赏按钮 -->
+<div id="coffeeButton" class="coffee-button animate-float">
+    <img src="{{ .Site.Params.tipButton.iconPath | default "https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/29abf2f1909549d9b349623ce2f63c9a~tplv-a9rns2rl98-image.image?rcl=20260110223047F413F4F7E44DE37CA261&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1770647481&x-signature=p4RnGOQT983ibuk06MWrJzNPd%2FQ%3D" }}" alt="{{ .Site.Params.tipButton.iconAlt | default "请我喝咖啡" }}">
+</div>
+
+<!-- 打赏模态窗口 -->
+<div id="tipModal" class="tip-modal">
+    <div class="tip-content">
+        <div class="tip-header">
+            <h3 class="tip-title">{{ .Site.Params.tipButton.title | default "请我喝杯咖啡吧！" }}</h3>
+            <span id="closeButton" class="close-button text-2xl">&times;</span>
+        </div>
+        <div class="payment-methods">
+            {{- range .Site.Params.tipButton.paymentMethods -}}
+            <div class="payment-item">
+                <img src="{{ .image }}" alt="{{ .name }}">
+                <span class="payment-name">{{ .name }}</span>
+            </div>
+            {{- end -}}
+        </div>
+        <p class="tip-thank">{{ .Site.Params.tipButton.thankText | default "感谢您的支持与鼓励！" }}</p>
+    </div>
+</div>
+
+<script>
+    // 获取DOM元素
+    const coffeeButton = document.getElementById('coffeeButton');
+    const tipModal = document.getElementById('tipModal');
+    const closeButton = document.getElementById('closeButton');
+
+    // 打开模态窗口
+    coffeeButton.addEventListener('click', () => {
+        tipModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // 防止背景滚动
+    });
+
+    // 关闭模态窗口
+    function closeModal() {
+        tipModal.classList.remove('active');
+        document.body.style.overflow = ''; // 恢复背景滚动
+    }
+
+    closeButton.addEventListener('click', closeModal);
+
+    // 点击模态窗口外部关闭
+    tipModal.addEventListener('click', (e) => {
+        if (e.target === tipModal) {
+            closeModal();
+        }
+    });
+
+    // 按ESC键关闭模态窗口
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && tipModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // 为支付方式添加点击效果
+    const paymentItems = document.querySelectorAll('.payment-item');
+    paymentItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // 添加点击效果
+            item.classList.add('scale-95');
+            setTimeout(() => {
+                item.classList.remove('scale-95');
+            }, 150);
+            
+            // 可以在这里添加提示信息，告知用户扫描二维码
+            const paymentName = item.querySelector('.payment-name').textContent;
+            alert(`请使用${paymentName}扫描二维码进行支付，感谢您的支持！`);
+        });
+    });
+</script>
+{{- end -}}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6F4E37',
+                        secondary: '#D2B48C',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .coffee-button {
+                @apply fixed right-6 bottom-6 cursor-pointer z-50 transition-all duration-300 hover:scale-110;
+            }
+            .coffee-button img {
+                @apply w-16 h-16 md:w-20 md:h-20 rounded-full shadow-lg;
+            }
+            .tip-modal {
+                @apply fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 opacity-0 pointer-events-none transition-opacity duration-300;
+            }
+            .tip-modal.active {
+                @apply opacity-100 pointer-events-auto;
+            }
+            .tip-content {
+                @apply bg-white rounded-xl p-6 max-w-md w-full mx-4 transform scale-95 transition-transform duration-300;
+            }
+            .tip-modal.active .tip-content {
+                @apply scale-100;
+            }
+            .tip-header {
+                @apply flex justify-between items-center mb-4;
+            }
+            .tip-title {
+                @apply text-xl font-bold text-primary;
+            }
+            .close-button {
+                @apply text-gray-500 hover:text-gray-700 cursor-pointer transition-colors;
+            }
+            .payment-methods {
+                @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+            }
+            .payment-item {
+                @apply flex flex-col items-center p-4 border border-gray-200 rounded-lg transition-all duration-300 hover:shadow-md;
+            }
+            .payment-item img {
+                @apply w-32 h-32 object-contain mb-2;
+            }
+            .payment-name {
+                @apply text-center font-medium;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+ 
+
+    <!-- 浮动咖啡按钮 -->
+    <div id="coffeeButton" class="coffee-button animate-float">
+        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/081e3319d8a14cd8a6c0d9316bbbbf05~tplv-a9rns2rl98-image.image?rcl=20260110205352330868B58B3422EC7B41&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1770641641&x-signature=okBj1RRD5yAOBynyB6ocEGWhbS4%3D" alt="请我喝咖啡">
+    </div>
+
+    <!-- 打赏模态窗口 -->
+    <div id="tipModal" class="tip-modal">
+        <div class="tip-content">
+            <div class="tip-header">
+                <h3 class="tip-title">请我喝杯咖啡吧！</h3>
+                <span id="closeButton" class="close-button text-2xl">&times;</span>
+            </div>
+            <div class="payment-methods">
+                <div class="payment-item">
+                    <img src= "{{.alipay}}"  alt="支付宝">
+                    <span class="payment-name">支付宝</span>
+                </div>
+                <div class="payment-item">
+                    <img src= "{{.wechat}}" alt="微信支付">
+                    <span class="payment-name">微信支付</span>
+                </div>
+            </div>
+            <p class="text-center text-gray-600 mt-4">感谢您的支持与鼓励！</p>
+        </div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const coffeeButton = document.getElementById('coffeeButton');
+        const tipModal = document.getElementById('tipModal');
+        const closeButton = document.getElementById('closeButton');
+
+        // 打开模态窗口
+        coffeeButton.addEventListener('click', () => {
+            tipModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        });
+
+        // 关闭模态窗口
+        function closeModal() {
+            tipModal.classList.remove('active');
+            document.body.style.overflow = ''; // 恢复背景滚动
+        }
+
+        closeButton.addEventListener('click', closeModal);
+
+        // 点击模态窗口外部关闭
+        tipModal.addEventListener('click', (e) => {
+            if (e.target === tipModal) {
+                closeModal();
+            }
+        });
+
+        // 按ESC键关闭模态窗口
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && tipModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // 为咖啡按钮添加悬停音效（可选）
+        coffeeButton.addEventListener('mouseenter', () => {
+            // 这里可以添加悬停音效，如果需要的话
+            // const hoverSound = new Audio('hover-sound.mp3');
+            // hoverSound.play();
+        });
+
+        // 为支付方式添加点击效果
+        const paymentItems = document.querySelectorAll('.payment-item');
+        paymentItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // 添加点击效果
+                item.classList.add('scale-95');
+                setTimeout(() => {
+                    item.classList.remove('scale-95');
+                }, 150);
+                
+                // 可以在这里添加提示信息，告知用户扫描二维码
+                const paymentName = item.querySelector('.payment-name').textContent;
+                alert(`请使用${paymentName}扫描二维码进行支付，感谢您的支持！`);
+            });
+        });
+    </script>
+</body>
+</html>
