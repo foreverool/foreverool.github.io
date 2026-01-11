@@ -1,5 +1,6 @@
 <!-- Add Analytics if enabled in configuration -->
 {{ with site.Params.features.analytics }}
+
     {{ if or .enable .enabled }}
         {{ with .services }}
             <!-- Google Analytics -->

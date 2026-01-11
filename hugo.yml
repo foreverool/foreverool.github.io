@@ -99,7 +99,7 @@ params:
         # GoatCounter
         goatCounter:
           code: foreverool  # Not self-hosted
-          instance: https://foreverool.goatcounter.com/count # For self-hosted you should use only one of the two methods
+          instance: foreverool # For self-hosted you should use only one of the two methods
 
 
     # Enable portfolio section

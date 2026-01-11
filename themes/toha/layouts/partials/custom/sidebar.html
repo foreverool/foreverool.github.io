@@ -1,0 +1,41 @@
+<!-- 自定义侧边栏：展示 GoatCounter 统计数据 -->
+<div class="card mt-3">
+  <div class="card-header">
+    <h5 class="mb-0">站点统计</h5>
+  </div>
+  <div class="card-body">
+    <p class="text-muted mb-2">总访问量：<span id="total-visits">加载中...</span></p>
+    <p class="text-muted">当前页面访问量：<span id="page-visits">加载中...</span></p>
+  </div>
+</div>
+
+<!-- 前端 JS 请求 GoatCounter API 并填充数据 -->
+<script>
+  // 替换为你的 GoatCounter 站点代码
+  const goatCounterCode = "foreverool";
+  const baseApiUrl = `https://foreverool.goatcounter.com`;
+
+  // 1. 获取站点总访问量
+  fetch(`${baseApiUrl}/count.json`)
+    .then(response => response.json())
+    .then(data => {
+      // data.count 即为总访问量
+      document.getElementById("total-visits").textContent = data.count.toLocaleString();
+    })
+    .catch(error => {
+      document.getElementById("total-visits").textContent = "获取失败";
+      console.error("获取总访问量失败：", error);
+    });
+
+  // 2. 获取当前页面访问量（通过当前页面路径请求）
+  const currentPath = window.location.pathname;
+  fetch(`${baseApiUrl}/count.json?path=${encodeURIComponent(currentPath)}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("page-visits").textContent = data.count.toLocaleString();
+    })
+    .catch(error => {
+      document.getElementById("page-visits").textContent = "获取失败";
+      console.error("获取当前页面访问量失败：", error);
+    });
+</script>
