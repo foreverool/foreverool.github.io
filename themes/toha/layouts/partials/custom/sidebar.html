@@ -1,4 +1,4 @@
-<!-- 自定义侧边栏：展示 GoatCounter 统计数据 -->
+<!-- 自定义侧边栏：用JSONP获取GoatCounter统计数据（绕过CORS） -->
 <div class="card mt-3">
   <div class="card-header">
     <h5 class="mb-0">站点统计</h5>
@@ -9,33 +9,31 @@
   </div>
 </div>
 
-<!-- 前端 JS 请求 GoatCounter API 并填充数据 -->
 <script>
-  // 替换为你的 GoatCounter 站点代码
+  // 替换为你的正确站点代码
   const goatCounterCode = "foreverool";
-  const baseApiUrl = `https://foreverool.goatcounter.com`;
+  const baseApiUrl = `https://${goatCounterCode}.goatcounter.com`;
 
-  // 1. 获取站点总访问量
-  fetch(`${baseApiUrl}/count.json`)
-    .then(response => response.json())
-    .then(data => {
-      // data.count 即为总访问量
-      document.getElementById("total-visits").textContent = data.count.toLocaleString();
-    })
-    .catch(error => {
-      document.getElementById("total-visits").textContent = "获取失败";
-      console.error("获取总访问量失败：", error);
-    });
+  // 1. JSONP请求：获取总访问量（核心：绕过CORS限制）
+  function getTotalVisitsCallback(data) {
+    document.getElementById("total-visits").textContent = data.count.toLocaleString();
+  }
+  const totalScript = document.createElement("script");
+  totalScript.src = `${baseApiUrl}/count.json?callback=getTotalVisitsCallback`;
+  totalScript.onerror = () => {
+    document.getElementById("total-visits").textContent = "获取失败";
+  };
+  document.body.appendChild(totalScript);
 
-  // 2. 获取当前页面访问量（通过当前页面路径请求）
-  const currentPath = window.location.pathname;
-  fetch(`${baseApiUrl}/count.json?path=${encodeURIComponent(currentPath)}`)
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("page-visits").textContent = data.count.toLocaleString();
-    })
-    .catch(error => {
-      document.getElementById("page-visits").textContent = "获取失败";
-      console.error("获取当前页面访问量失败：", error);
-    });
+  // 2. JSONP请求：获取当前页面访问量
+  function getPageVisitsCallback(data) {
+    document.getElementById("page-visits").textContent = data.count.toLocaleString();
+  }
+  const currentPath = encodeURIComponent(window.location.pathname || "/");
+  const pageScript = document.createElement("script");
+  pageScript.src = `${baseApiUrl}/count.json?path=${currentPath}&callback=getPageVisitsCallback`;
+  pageScript.onerror = () => {
+    document.getElementById("page-visits").textContent = "获取失败";
+  };
+  document.body.appendChild(pageScript);
 </script>
