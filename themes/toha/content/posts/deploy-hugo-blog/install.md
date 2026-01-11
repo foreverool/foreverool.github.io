@@ -9,7 +9,7 @@ menu:
     name: 
     identifier: install-hugo
     parent: deploy-hugo-blog
-    weight: 10
+    weight: 1
 ---
 
 # hugo个人博客搭建

@@ -6,10 +6,10 @@ description: ""
 theme: Toha
 menu:
   sidebar:
-    name: install-theme
+    name: 安装主题
     identifier: install-theme-toha
     parent: deploy-hugo-blog
-    weight: 10
+    weight: 2
 ---
 
 
