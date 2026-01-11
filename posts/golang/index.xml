@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on foreverool's blog</title><link>https://foreverool.github.io/posts/golang/</link><description>Recent content in Golang on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 10 Jan 2026 04:44:16 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/posts/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>Chanel Base</title><link>https://foreverool.github.io/posts/golang/chanel-base/</link><pubDate>Sat, 10 Jan 2026 04:44:16 +0800</pubDate><guid>https://foreverool.github.io/posts/golang/chanel-base/</guid><description>&lt;h1 id="chan的实现原理"&gt;chan的实现原理&lt;/h1&gt;
+&lt;hr&gt;
+&lt;h1 id="0-预备知识"&gt;0. 预备知识&lt;/h1&gt;
+&lt;h3 id="01-unix管道"&gt;0.1 Unix管道&lt;/h3&gt;
+&lt;p&gt;​ 在&lt;code&gt;Unix&lt;/code&gt;以及类&lt;code&gt;Unix&lt;/code&gt;操作系统中，管道(pipeline)是将标准输入输出链接起来的进程，其中每一个进程的输出被直接作为下一个进程的输入，也就是说管道其实是进程间的通信机制。&lt;/p&gt;
+&lt;p&gt;​ 管道的典型用途是为两个不同进程（一个父进程，另一个是子进程）间进行通信的手段。首先会根据父进程&lt;code&gt;fork&lt;/code&gt;（&lt;code&gt;unix&lt;/code&gt;创建子进程的函数）一个子进程（也就是创建一个父进程的副本），由于创建管道会返回两个文件描述符，一个是读描述符，另一个是写描述符。在进行&lt;code&gt;fork&lt;/code&gt;的时候，进程空间会进行复制，也就是说该文件描述符也会被复制，所有两个进程都有相同的读写文件描述符。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://foreverool.github.io/images/posts/golang/chanel_base/Image00027.jpg" alt="img"&gt;&lt;/p&gt;
+&lt;p&gt;​ 当父进程关闭读出端，子进程关闭同一管道的写入端。这样就在父子进程间提供了一个单向数据流。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://foreverool.github.io/images/posts/golang/chanel_base/Image00028.jpg" alt="img"&gt;&lt;/p&gt;
+&lt;p&gt;​ 比如在执行&lt;code&gt;linux&lt;/code&gt;命令时：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ls -l | grep &lt;span style="color:#e6db74"&gt;&amp;#34;chan&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;​ 首先父进程就是&lt;code&gt;shell&lt;/code&gt;，它首先会创建管道(pipe)，&lt;/p&gt;
+&lt;p&gt;接着创建&lt;code&gt;ls &lt;/code&gt;子进程，之后创建&lt;code&gt;grep&lt;/code&gt;子进程，也就是&lt;code&gt;fork&lt;/code&gt;两个子进程，这样两个子进程就会包含管道返回的两个文件描述符，之后将&lt;code&gt;ls -l&lt;/code&gt;所执行的命令标准输出写入到管道之中，然后&lt;code&gt;grep &amp;quot;chan&amp;quot;&lt;/code&gt;则会从管道读取数据并处理，最后就是返回结果。&lt;/p&gt;
+&lt;h4 id="011-管道在linux下的具体实现"&gt;0.1.1 管道在linux下的具体实现&lt;/h4&gt;
+&lt;p&gt;​ 管道在&lt;code&gt;Linux&lt;/code&gt;系统具体实现是缓冲区&lt;code&gt;buffer&lt;/code&gt;而不是队列。&lt;/p&gt;
+&lt;p&gt;​ 管道会为读端和写端分别分配内核缓冲区， 写进程将数据写入写端缓冲区，读进程从读端缓冲区读取数据。内核将写端缓冲区的数据进行复制到读端缓冲区，然后内核也会维护读写两端的位置指针。&lt;/p&gt;
+&lt;p&gt;​ 同步机制：&lt;/p&gt;
+&lt;p&gt;​ 当写端缓冲区满的时候，写进程会被阻塞掉，直到读进程读取了部分数据腾出空间。&lt;/p&gt;
+&lt;p&gt;​ 当读缓冲区为空的时候，读进程会被阻塞，直到写进程写入了新数据。&lt;/p&gt;
+&lt;p&gt;​ 管道的数据采用&lt;code&gt;FIFO&lt;/code&gt;的数据处理模式，也就是先写入的数据先被读取。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="1-chanel"&gt;1. chanel&lt;/h2&gt;
+&lt;p&gt;​ 在&lt;code&gt;go&lt;/code&gt;语言中，一个进程可能会有多个&lt;code&gt;goroutine&lt;/code&gt;，多个&lt;code&gt;goroutine&lt;/code&gt;之间的通信可以使用&lt;code&gt;chanel&lt;/code&gt;或者对于共享内存进行加锁。&lt;/p&gt;
+&lt;h3 id="11-chan的数据结构"&gt;1.1 chan的数据结构&lt;/h3&gt;
+&lt;p&gt;​ 在&lt;code&gt;go SDK 1.20.3 &lt;/code&gt;中的&lt;code&gt;runtime/chan.gp&lt;/code&gt;文件中就定义了&lt;code&gt;chan&lt;/code&gt;的底层数据结构&lt;code&gt;hchan&lt;/code&gt;。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;type&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;hchan&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;qcount&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;uint&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 表示当前队列中的剩余元素&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;dataqsiz&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;uint&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 表示循环队列的大小，即可以存放元素的个数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;buf&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;unsafe&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Pointer&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 指向一个dataqsiz大小的数组，也就是环形队列的指针&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;elemsize&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;uint16&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 每个元素的大小&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;closed&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;uint32&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 标记关闭状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;elemtype&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;_type&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 元素类型&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;sendx&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;uint&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 队列下标，指元素写入时存放到队列中的位置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;recvx&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;uint&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 队列下标，指元素从队列的该位置读出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;recvq&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;waitq&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 等待读消息的goroutine队列&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;sendq&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;waitq&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 等待写消息的goroutine队列&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;lcok&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;mutex&lt;/span&gt; &lt;span style="color:#75715e"&gt;// 互斥锁，chan不允许并发读写&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;type&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;waitq&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;first&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;sudog&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;last&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;sudog&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;​ &lt;code&gt;waitg&lt;/code&gt;类型是一个队列，其包含队列的第一个元素指针和最后一个元素指针。&lt;/p&gt;</description></item></channel></rss>
