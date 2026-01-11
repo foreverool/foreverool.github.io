@@ -1,5 +1,5 @@
 ---
-title: 'Install Theme'
+title: '安装主题'
 date: '2026-01-11T21:33:15+08:00'
 hero: 
 description: ""

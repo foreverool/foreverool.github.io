@@ -1,5 +1,5 @@
 ---
-title: 'Deploy to Github'
+title: '部署到Github'
 date: '2026-01-12T06:23:32+08:00'
 hero: 
 description: ""
