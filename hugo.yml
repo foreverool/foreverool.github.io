@@ -82,9 +82,9 @@ params:
       services:
         giscus:
           repo: foreverool/foreverool.github.io
-          repoID: R_kgDOQ3dlqw
+          repoID: R_kgDOQ37o_Q
           category: Announcements
-          categoryID: DIC_kwDOQ3dlq84C01Bl
+          categoryID: DIC_kwDOQ37o_c4C02rS
           theme: light
           map: pathname
           reaction: 1
