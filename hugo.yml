@@ -89,6 +89,7 @@ params:
           map: pathname
           reaction: 1
           strict: 1
+          loading: "lazy"
           metadata: 0
           inputPosition: top
           crossOrigin: anonymous

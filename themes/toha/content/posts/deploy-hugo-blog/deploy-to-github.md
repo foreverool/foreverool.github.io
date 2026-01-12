@@ -29,7 +29,7 @@ menu:
 - 当然也可以直接将public目录上传到main分支上，不创建gh-pages分支，但是这么做有一个缺点就是，你网站的根目录配置文件，主题文件等内容都没有托管到Github上，你只能依赖你本地的项目去发布文章，修改网页，如果你换了
 - 最重要的是配置文件主题等内容与发布内容分离，main分支主要是hugo以及文章主题的内容，而gh-pages分支就是保存hugo根据你的配置数据等内容产生的静态文件。
 
-​	设备，就没办法发布文章了。所以这也是为什么要再创建一个gh-pages分支，该分支主要保存根目录下内容，并且将public的内容也放到根目录，这样每次提交main的时候，让Github Pages 安装hugo以及主题需要的资源，然后生成public目录就行了。
+所以这也是为什么要再创建一个gh-pages分支，让gh-pages分支存储public所有内容，这个内容是由Github Pages自动完成，每当我们提交新的内容到main分支之后，Github Pages会安装hugo，下载相关资源后然后使用hugo生成public目录到gh-pages分支，然后Github Pages会自动部署gh-pages分支的内容到<username>.github.io网页上。
 
 创建gh-pages分支
 

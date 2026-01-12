@@ -10,6 +10,8 @@
 {{ $inputPosition := .inputPosition | default "bottom" }}
 {{ $crossOrigin   := .crossOrigin | default "anonymous" }}
 {{ $strict        := .strict | default "0"}}
+{{ $loading       := .loading }}
+
 
 <script src="https://giscus.app/client.js"
         data-repo="{{ $repo }}"
@@ -23,6 +25,7 @@
         data-theme="{{ $theme }}"
         data-lang="{{ .Site.Language.Lang }}"
         data-strict="{{ $strict  }}"
+        data-loading= "{{ $loading }}"
         crossorigin="{{ $crossOrigin }}"
         async>
 </script>
