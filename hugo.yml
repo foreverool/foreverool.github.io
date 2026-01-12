@@ -88,6 +88,7 @@ params:
           theme: light
           map: pathname
           reaction: 1
+          strict: 1
           metadata: 0
           inputPosition: top
           crossOrigin: anonymous
