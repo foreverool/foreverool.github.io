@@ -1,0 +1,22 @@
+{{ $sectionID := replace (lower .section.name) " " "-"  }}
+{{ if .section.id }}
+  {{ $sectionID = .section.id }}
+{{ end }}
+
+<div class="container anchor p-lg-5 about-section" id="{{ $sectionID }}">
+    {{ if not (.section.hideTitle) }}
+    <h1 class="text-center">
+        <span id="{{ $sectionID }}"></span>{{ .section.name }}</h1>
+  {{ else }}
+    <h1 class="text-center" style="display: none">
+        <span id="{{ $sectionID }}"></span>{{ .section.name }}</h1>
+  {{ end }}
+    <!-- 移除父容器 text-align: center，仅通过图片样式实现居中 -->
+    <div style="margin: 20px 0;">
+        <img 
+            src="https://leetcard.jacoblin.cool/foreverool-n?theme=light&font=Hind%20Vadodara&ext=heatmap&site=cn" 
+            alt="LeetCode Contributions 日历" 
+            style="display: block; margin: 0 auto; max-width: 100%; height: auto; border-radius: 8px;" 
+        />
+    </div>
+</div>

@@ -1,0 +1,9 @@
+# section information
+section:
+  name: Leetcode Contrubutions
+  id: leetcode-contibutions
+  enable: true
+  weight: 3
+  showOnNavbar: false
+  hideTitle: false
+  template: sections/leetcode-card.html
