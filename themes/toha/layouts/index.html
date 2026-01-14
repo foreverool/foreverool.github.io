@@ -28,9 +28,14 @@
     <!--- NAVBAR ------------------------->
     {{- partial "navigators/navbar.html" . -}}
 
-
+     
+  
     <!--- ADD HOME SECTION ---------------->
     {{- partial "sections/home.html" . -}}
+
+    <!-- 添加文章heatmap -->
+    {{- partial "custom/heatmap.html" . -}}
+    {{- partial "custom/heatmap-data.html" . -}}
 
     <!--- ADD OPTIONAL SECTIONS ----------->
     {{ $sections:= site.Data.sections }}
@@ -58,6 +63,7 @@
         {{ end }}
       {{ end }}
     {{ end }}
+
 
     <!--- ADD FOOTER ----------------------->
     {{ $footerTemplate:= site.Params.footer.template | default "footer.html" }}

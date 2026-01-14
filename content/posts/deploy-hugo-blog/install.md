@@ -4,6 +4,7 @@ date: '2026-01-11T19:02:01+08:00'
 hero: images/posts/deploy-hugo-blog/images.png
 description: ""
 theme: Toha
+draft: false
 menu:
   sidebar:
     name: 

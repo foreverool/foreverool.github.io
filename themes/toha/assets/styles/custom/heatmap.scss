@@ -1,0 +1,79 @@
+.heatmap-wrapper {
+  margin: 0.5rem 0;
+  overflow-x: auto;  /* Scrollbar only when needed */
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--yellow) var(--light-grey);
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+.heatmap {
+  width: 48em;  /* Fixed width for mobile to prevent squashing */
+  min-width: 48em;  /* Ensure minimum width on mobile */
+  height: 210px;
+  box-sizing: border-box;
+}
+@media screen and (min-width: 48em) {
+  .heatmap {
+      min-width: 0; 
+      width: 100%; 
+      max-width: 100%; 
+    }
+}
+.heatmap-year-buttons {
+  width: 100%;
+  display: grid;
+  box-sizing: border-box;
+  gap: 0.5rem;
+  margin: 0;
+  grid-auto-flow: column; 
+  justify-content: inherit;
+  direction: rtl;
+}
+.heatmap-year-buttons button {
+  border-radius: 0.5rem;
+  background-color: #e48a04;
+  color: #DBDBDB;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+  font-size: 0.833rem;
+  font-family: "monaspacekrypton", monospace;
+  font-weight: 600;
+  width: 100%;
+}
+/* COLORS FOR LIGHT & DARK THEMES */
+html[data-theme="dark"] .heatmap {
+  background-color: var(--bg-color);
+  border: 1px dotted var(--yellow);
+  border-radius: 0.5rem;
+}
+html[data-theme="dark"] .heatmap-year-buttons button {
+  border: 1px solid #E64814;
+}
+html[data-theme="dark"] .heatmap-year-buttons button:hover {
+  border-color: var(--red);
+  color: var(--button-state-color);
+  transition: 0.2s ease;
+}
+html[data-theme="dark"] .heatmap-wrapper {
+scrollbar-color: var(--yellow-opacity) var(--bg-color);
+}
+html[data-theme="light"] .heatmap {
+  background-color: var(--light-grey);
+  border: 1px solid var(--black);
+  border-radius: 0.5rem;
+}
+html[data-theme="light"] .heatmap-wrapper {
+  scrollbar-color: var(--special-bg) var(--bg-color);
+}
+html[data-theme="light"] .heatmap-year-buttons button {
+  border: 1px solid var(--black);
+  background-color: var(--light-grey);
+  color: var(--dark-grey);
+}
+html[data-theme="light"] .heatmap-year-buttons button:hover {
+  color: var(--special-bg);
+  transition: 0.2s ease;
+}

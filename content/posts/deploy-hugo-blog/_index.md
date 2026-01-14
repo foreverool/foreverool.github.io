@@ -1,6 +1,7 @@
 ---
 title: 搭建hugo博客
 hero: images/posts/deploy-hugo-blog/images.png
+draft: false
 menu:
   sidebar:
     name: 搭建hugo博客

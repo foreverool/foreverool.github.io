@@ -15,7 +15,7 @@ module:
 
 
 # 关键配置：指定 Hugo 默认内容目录为 Toha 主题的 content
-contentDir: "themes/toha/content"
+#contentDir: "themes/toha/content"
 
 # Manage languages
 # For any more details, you can check the official documentation: https://gohugo.io/content-management/multilingual/
@@ -72,7 +72,6 @@ params:
    # 2. 文章配置：启用最后修改时间显示（对应 TOML 的 [params.post]）
   post:
     showLastModified: true  # 开启文章详情页的「最后修改时间」显示
-
 
 
   features:

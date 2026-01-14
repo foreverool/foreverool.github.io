@@ -1,0 +1,247 @@
+<script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var dataMap = {};
+  {{ range where (where .Site.Pages "Section" "posts") "Kind" "page" }} // Works on regular content pages, i.e. not list pages, taxonomy, terms. 
+    // 1. 定义当前文章的详情对象（转义特殊字符，避免破坏 JS 语法）
+  var articleDetail = {
+    wordCount: {{ .WordCount }}, // 文章字数（数字类型，直接嵌入）
+    link: "{{ .RelPermalink | htmlEscape }}" // 文章相对链接（转义特殊字符）
+  };
+
+  // 2. 定义当前文章的映射对象（键：转义后的文章标题，值：文章详情）
+  var articleMap = {};
+  articleMap["{{ .Title | htmlEscape }}"] = articleDetail;
+
+  // 3. 定义当前日期（转义，避免特殊字符，作为 dataMap 的键）
+  var currentDate = "{{ .Date.Format "2006-01-02" | htmlEscape }}";
+
+  // 4. 关键：判断当前日期对应的数组是否存在，不存在则初始化空数组（避免重置）
+  if (!Array.isArray(dataMap[currentDate])) {
+    dataMap[currentDate] = [];
+  }
+
+  // 5. 补全逻辑：将文章映射对象推入对应日期的数组（实现数据累加）
+  dataMap[currentDate].push(articleMap);
+
+  {{ end }}
+ 
+  
+  function filterDataByYear(year) {
+    var filtered = [];
+    for (const [date, value] of Object.entries(dataMap)) {
+   
+      if (date.startsWith(year)) {
+        var count = 0
+        for (let i = 0; i<value.length; i++){
+          for (const [t, v] of Object.entries(value[i]))
+        {
+              
+              count = count + v.wordCount
+        }
+        }
+        console.log(count)
+        filtered.push([date, count]);
+      }
+    }
+ 
+    return filtered;
+  }
+
+  // Count the total number of posts per year
+  function getDotCount(year) {
+    let count = 0;
+    for (const [date,value] of  Object.entries(dataMap)) {
+        if (date.startsWith(year)) {
+            count = count + value.length
+        }
+    }
+    return count;
+    }
+
+  var chartDom = document.getElementById('heatmap');
+ var myChart = echarts.init(chartDom, null, { renderer: 'canvas' }); // Renderer can = canvas or svg. Try both to see which works better for you
+
+  // Resize event listener
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            myChart.resize();
+        }, 100); // Wait 100ms after last resize event
+    });
+
+  function createOption(year) {
+    const dotCount = getDotCount(year);
+    return {
+    textStyle: { // Global text styles
+       fontFamily: 'monospace'
+    },
+    title: [ 
+        {
+        top: 8,
+        show: true,
+        text: year+ '年一共发布了 ' + dotCount + ' 篇文章😂' ,
+        left: 'left',
+        padding: [5, 20],
+        textStyle: {
+            color: '#f3939d',
+            fontSize: 16,
+            fontWeight: 600
+        }
+    },
+    {
+        text: '', // Enter your own message or remove this extra description section
+        left: 'left',
+        bottom: 'bottom',
+        padding: [13, 22],
+        textStyle: {
+            color: '#A1A1A1',
+            fontStyle: 'italic',
+            fontSize: 10,
+            fontWeight: 200
+        }
+    }
+],
+    tooltip: {
+      formatter: function (p) {
+        const post = dataMap[p.data[0]];
+        const formattedDate = echarts.format.formatTime('MM/dd', p.data[0]);
+        var count = 0 
+
+        for (let i = 0 ; i< post.length; i++){
+            for (const [t,v] of Object.entries(post[i])){
+                count += v.wordCount
+              }
+        }
+         return formattedDate + ' | ' + count + ' words' + '<br/> ' ;
+        
+      },
+        show: true,
+        confine: true,
+        appendToBody: true,
+        trigger: 'item',
+        triggerOn: 'mousemove|click',
+        textStyle: {
+            color: "#DBDBDB",
+            fontWeight: 400,
+            fontSize: 13
+        },
+        backgroundColor: "#302010",
+        borderWidth: '1',
+        padding: [3, 6]
+    },
+    visualMap: {
+        min: 0,
+        max: 4000, // Adjust max word count to get the maximum gradient color variation, and according to your usual post length
+        splitNumber: 4, // Each colour group is 1000 words apart (4000/4)
+        type: 'piecewise',
+        orient: 'horizontal',
+        left: 'right',
+        padding: [14, 20], 
+        top: 'bottom',
+        inRange: {   
+          color: ['#00de00', '#005e00'] // Light to dark gradient
+        },
+        text: ['Long', 'Short'],
+        textStyle: {
+            color: '#A1A1A1',
+            fontStyle: 'italic',
+        },
+        fontWeight: 400,
+        showLabel: false,
+         pieces: [
+            { min: 0, max: 999, label: '0-1k' },
+            { min: 1000, max: 1999, label: '1k-2k' },
+            { min: 2000, max: 2999, label: '2k-3k' },
+            { min: 3000, max: 99999, label: '3k+' },
+        ],
+        itemGap: 8,
+    },
+    calendar: {
+        top: 70,
+        left: 40,
+        bottom: 45, 
+        right: 10,
+        cellSize: 'auto',
+        orient: 'horizontal',
+        range: year,
+        itemStyle: {
+          color: '#EAF3DE', // Base grid color
+          borderWidth: 2,
+          borderType: 'solid',
+          borderColor: '#ffffff', // Grid lines
+        },
+        yearLabel: {
+            show: false // Included year in title
+        },
+        splitLine: {  // Month-splitting lines
+          show: true, // Set to false for a more GitHub look
+          lineStyle: {
+            color: "#A1A1A1",
+            width: 0.3,
+            type: 'solid',
+            opacity: 0.8
+            }
+        },
+        monthLabel: {
+            show: true,
+            formatter: '{nameMap}',
+            fontSize: 12,
+            color: '#A1A1A1',
+            fontWeight: 400,
+            silent: true
+        },
+        dayLabel: {
+          show: true,
+          firstDay: 1,  // Monday start, or 0 for Sunday
+          color: '#A1A1A1',
+          fontSize: 10,
+          fontWeight: 200,
+          silent: true
+        }
+    },
+    series: {
+        type: 'heatmap',
+        coordinateSystem: 'calendar',
+        data: filterDataByYear(year),
+        label: {
+            show: false,
+        }
+    }
+    };
+  }
+    window.changeYear = function(year) {
+        let option = createOption(year);
+        myChart.setOption(option, true);
+    }
+
+    window.addEventListener('resize', () => myChart.resize()); // Resize listener
+    myChart.on('click', function(params) {
+      if (params.componentType === 'series') {
+        const post = dataMap[params.data[0]][0];
+        if (post) {
+          for (const [t,v] of Object.entries(post)){
+             const link = window.location.origin +v.link;
+              window.open(link, '_blank').focus();
+          }
+         
+        }
+      }
+    });
+
+  // Initialize with the current year with Hugo's now.Format or manually `changeYear('2020')`
+  changeYear('{{ now.Format "2006" }}');
+  });
+
+// // Uncomment line below to access the JSON dataMap in browser console with`JSON.stringify([window.__dataMapSnapshot])`. Only works when in localhost mode or when the word debug is in the URL like `?debug`
+//   if (location.search.includes('debug') || location.hostname === 'localhost') {
+//   window.__dataMapSnapshot = Object.freeze(Object.fromEntries(dataMap));
+// }
+</script>

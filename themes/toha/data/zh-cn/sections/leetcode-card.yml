@@ -2,7 +2,7 @@
 section:
   name: Leetcode Contrubutions
   id: leetcode-contibutions
-  enable: true
+  enable: false
   weight: 3
   showOnNavbar: false
   hideTitle: false

@@ -4,6 +4,8 @@ date: '2026-01-12T06:23:32+08:00'
 hero: 
 description: ""
 theme: Toha
+draft: false
+
 menu:
   sidebar:
     name: 部署到Github

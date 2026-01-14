@@ -30,7 +30,9 @@
       "typeit": "toha"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "echarts": "^6.0.0"
+  },
   "devDependencies": {
     "@fontsource/mulish": "4.5.13",
     "@fortawesome/fontawesome-free": "^6.6.0",

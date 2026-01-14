@@ -4,6 +4,7 @@ date: '2026-01-11T21:33:15+08:00'
 hero: 
 description: ""
 theme: Toha
+draft: false
 menu:
   sidebar:
     name: 安装主题
