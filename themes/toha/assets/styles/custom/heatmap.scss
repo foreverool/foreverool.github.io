@@ -52,7 +52,7 @@
   box-shadow: var(--shadow-lg);
   max-width: 800px;
   margin: 0 auto;
-
+  overflow-x: auto;
 
 }
 
@@ -63,7 +63,7 @@
   min-width: 48em;  /* Ensure minimum width on mobile */
   height: 210px;
   box-sizing: border-box;
-  overflow-x: auto;
+
 }
 @media screen and (min-width: 48em) {
   .heatmap {
