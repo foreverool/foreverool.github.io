@@ -72,6 +72,7 @@ $mobile-breakpoint: 768px; // 手机端断点（768px 以下为移动设备）
       border: 1px solid #000;
       overflow-x: auto;
       overflow-y: hidden;
+      white-space: nowrap; 
     }
 }
 
