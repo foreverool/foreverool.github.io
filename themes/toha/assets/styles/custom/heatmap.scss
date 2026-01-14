@@ -1,13 +1,62 @@
-.heatmap-wrapper {
-  margin: 0.5rem 0;
-  overflow-x: auto;  /* Scrollbar only when needed */
-  overflow-y: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: var(--yellow) var(--light-grey);
-  width: 100%;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  /* Color Palette */
+  --bg-primary: #ffffff;
+  --bg-secondary: #000000;
+  --bg-tertiary: #3a3a3a;
+  --text-primary: #ee6e29;
+  --text-secondary: #a0a0a0;
+  --border-color: #404040;
+  --bg-third: #2A3332;
+  
+
+  
+  /* Spacing */
+  --spacing-xs: 2px;
+  --spacing-sm: 4px;
+  --spacing-md: 8px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  
+  /* Borders and Shadows */
+  --border-radius-sm: 2px;
+  --border-radius-md: 4px;
+  --border-radius-lg: 6px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.4);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.35s ease;
 }
+
+
+
+/* ================================================
+   Heatmap Wrapper
+   ================================================ */
+.heatmap-wrapper {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-lg);
+  max-width: 800px;
+  margin: 0 auto;
+
+}
+
+
+
 .heatmap {
   width: 48em;  /* Fixed width for mobile to prevent squashing */
   min-width: 48em;  /* Ensure minimum width on mobile */
@@ -19,61 +68,104 @@
       min-width: 0; 
       width: 100%; 
       max-width: 100%; 
+      border: 1px solid #000;
     }
 }
-.heatmap-year-buttons {
-  width: 100%;
+
+
+
+
+/* ================================================
+   Month Labels
+   ================================================ */
+.heatmap-month-labels {
+  grid-column: 1 / -1;
   display: grid;
-  box-sizing: border-box;
-  gap: 0.5rem;
-  margin: 0;
-  grid-auto-flow: column; 
-  justify-content: inherit;
-  direction: rtl;
+  grid-template-columns: auto repeat(12, 1fr);
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  padding-left: calc(20px + var(--spacing-xs)); /* Align with day labels */
 }
+
+.heatmap-month-label {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: var(--spacing-xs) 0;
+}
+
+
+
+/* ================================================
+   Year Buttons
+   ================================================ */
+.heatmap-year-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+
 .heatmap-year-buttons button {
-  border-radius: 0.5rem;
-  background-color: #e48a04;
-  color: #DBDBDB;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-md);
+  font-weight: 500;
   cursor: pointer;
-  padding: 0.5rem 0;
-  margin: 0.5rem 0;
-  font-size: 0.833rem;
-  font-family: "monaspacekrypton", monospace;
+  transition: all var(--transition-normal);
+  outline: none;
+}
+
+
+.heatmap-year-buttons button:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--accent-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.heatmap-year-buttons button.active {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+  border-color: var(--accent-primary);
   font-weight: 600;
-  width: 100%;
+  box-shadow: var(--shadow-md);
 }
-/* COLORS FOR LIGHT & DARK THEMES */
-html[data-theme="dark"] .heatmap {
-  background-color: var(--bg-color);
-  border: 1px dotted var(--yellow);
-  border-radius: 0.5rem;
+
+
+
+/* ================================================
+   Day Labels (Weekdays)
+   ================================================ */
+.heatmap-day-labels {
+  display: contents;
 }
-html[data-theme="dark"] .heatmap-year-buttons button {
-  border: 1px solid #E64814;
+
+.heatmap-day-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-align: right;
+  padding-right: var(--spacing-sm);
+  line-height: 1;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
-html[data-theme="dark"] .heatmap-year-buttons button:hover {
-  border-color: var(--red);
-  color: var(--button-state-color);
-  transition: 0.2s ease;
-}
+
 html[data-theme="dark"] .heatmap-wrapper {
-scrollbar-color: var(--yellow-opacity) var(--bg-color);
+ background-color: var(--bg-third);
 }
-html[data-theme="light"] .heatmap {
-  background-color: var(--light-grey);
-  border: 1px solid var(--black);
-  border-radius: 0.5rem;
-}
-html[data-theme="light"] .heatmap-wrapper {
-  scrollbar-color: var(--special-bg) var(--bg-color);
-}
-html[data-theme="light"] .heatmap-year-buttons button {
-  border: 1px solid var(--black);
-  background-color: var(--light-grey);
-  color: var(--dark-grey);
-}
-html[data-theme="light"] .heatmap-year-buttons button:hover {
-  color: var(--special-bg);
-  transition: 0.2s ease;
-}
+
+
+
