@@ -38,7 +38,6 @@
   --transition-slow: 0.35s ease;
 }
 
-$mobile-breakpoint: 768px; // 手机端断点（768px 以下为移动设备）
 
 /* ================================================
    Heatmap Wrapper
@@ -52,6 +51,7 @@ $mobile-breakpoint: 768px; // 手机端断点（768px 以下为移动设备）
   box-shadow: var(--shadow-lg);
   max-width: 800px;
   margin: 0 auto;
+  overflow-x: auto; 
 }
 
 
@@ -64,17 +64,7 @@ $mobile-breakpoint: 768px; // 手机端断点（768px 以下为移动设备）
 
 }
 
-@media screen and (max-width: $mobile-breakpoint) {
-  .heatmap {
-      min-width: 0; 
-      width: 100%; 
-      max-width: 100%; 
-      border: 1px solid #000;
-      overflow-x: auto;
-      overflow-y: hidden;
-      white-space: nowrap; 
-    }
-}
+
 
 @media screen and (min-width: 48em) {
   .heatmap {
