@@ -1,14 +1,12 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
 
-
-
-
-
-
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   var dataMap = {};
-  {{ range where (where .Site.Pages "Section" "posts") "Kind" "page" }} // Works on regular content pages, i.e. not list pages, taxonomy, terms. 
+  {{ $postsPages := where (where .Site.Pages "Section" "posts") "Kind" "page" }}
+  {{ $notesPages :=  where (where .Site.Pages "Section" "notes") "Kind" "page" }}
+  {{ $allPages := $postsPages | union $notesPages}}
+  {{ range $allPages }} // Works on regular content pages, i.e. not list pages, taxonomy, terms. 
     // 1. 定义当前文章的详情对象（转义特殊字符，避免破坏 JS 语法）
   var articleDetail = {
     wordCount: {{ .WordCount }}, // 文章字数（数字类型，直接嵌入）

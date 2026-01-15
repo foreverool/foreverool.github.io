@@ -18,6 +18,7 @@
       <span class="float-start">
         {{if .Date}}
           {{ i18n "published_on" }} {{ partial "custom/date-format.html" (dict "date" .Date "format" "medium") }}
+          | {{.WordCount}}字
           {{ if site.Params.features.readingTime }} | {{.ReadingTime}} {{ i18n "minute" .ReadingTime }} {{ end }}</span>
         {{end}}
       <a

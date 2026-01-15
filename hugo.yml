@@ -14,6 +14,7 @@ module:
     target: static/fonts
 
 
+hasCJKLanguage: true
 # 关键配置：指定 Hugo 默认内容目录为 Toha 主题的 content
 #contentDir: "themes/toha/content"
 
@@ -69,11 +70,7 @@ params:
     # 1. 日期格式自定义（适配中文习惯，对应 TOML 的 [params.dateFormat]）
   dateFormat: "2006年01月02日"  
   
-   # 2. 文章配置：启用最后修改时间显示（对应 TOML 的 [params.post]）
-  post:
-    showLastModified: true  # 开启文章详情页的「最后修改时间」显示
-
-
+ 
   features:
   #设置comment
     comment:
@@ -93,7 +90,9 @@ params:
           inputPosition: top
           crossOrigin: anonymous
 
-
+        # Enable & configure "Notes" features
+    notes:
+      enable: true
 
     # Enable portfolio section
     portfolio:
