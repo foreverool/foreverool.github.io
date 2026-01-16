@@ -9,3 +9,6 @@ menu:
     parent: 
     weight: 
 ---
+
+{{< note title="">}}
+{{< /note >}}
