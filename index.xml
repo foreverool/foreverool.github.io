@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>foreverool's blog</title><link>https://foreverool.github.io/</link><description>Recent content on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 17 Jan 2026 03:05:52 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Unnecessarty nested code</title><link>https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project/2-unnecessary-nested-code/</link><pubDate>Sat, 17 Jan 2026 03:05:52 +0800</pubDate><guid>https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project/2-unnecessary-nested-code/</guid><description>&lt;div class="note-card "&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>foreverool's blog</title><link>https://foreverool.github.io/</link><description>Recent content on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 22 Jan 2026 19:38:48 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>misusing-init-functions</title><link>https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project/3-misusing-init-functions/</link><pubDate>Thu, 22 Jan 2026 19:38:48 +0800</pubDate><guid>https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project/3-misusing-init-functions/</guid><description>&lt;div class="note-card "&gt;
+&lt;div class="item"&gt;
+&lt;h5 class="note-title"&gt;&lt;span&gt;misusing-init-functions&lt;/span&gt;&lt;/h5&gt;
+&lt;div class="card"&gt;
+&lt;div class="card-body"&gt;&lt;h1 id="滥用初始化函数"&gt;滥用初始化函数&lt;/h1&gt;
+&lt;h2 id="go语言中的init函数"&gt;Go语言中的init函数&lt;/h2&gt;
+&lt;p&gt;​ 在&lt;code&gt;Go&lt;/code&gt;语言中，&lt;code&gt;init&lt;/code&gt;函数是一个内置的特殊函数，其主要特征如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;函数签名固定： &lt;code&gt;func init(){}&lt;/code&gt;无参数、无返回值&lt;/li&gt;
+&lt;li&gt;无法被程序&lt;strong&gt;显式&lt;/strong&gt;调用&lt;/li&gt;
+&lt;li&gt;由&lt;code&gt;Go&lt;/code&gt;语言运行时系统在程序启动阶段自动执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="init-执行规则"&gt;init 执行规则&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;init&lt;/code&gt;函数的执行是在&lt;strong&gt;包级全局变量初始化之后，main函数执行之前&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Unnecessarty nested code</title><link>https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project/2-unnecessary-nested-code/</link><pubDate>Sat, 17 Jan 2026 03:05:52 +0800</pubDate><guid>https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project/2-unnecessary-nested-code/</guid><description>&lt;div class="note-card "&gt;
 &lt;div class="item"&gt;
 &lt;h5 class="note-title"&gt;&lt;span&gt;Unnecessary nested code&lt;/span&gt;&lt;/h5&gt;
 &lt;div class="card"&gt;
