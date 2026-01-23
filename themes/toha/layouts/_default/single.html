@@ -67,7 +67,7 @@
         {{ if site.Params.features.tags.enable }}
           {{partial "misc/tags.html" .Params.tags }}
         {{ end }}
-        <div class="post-content" id="post-content">
+        <div class="markdown-content" id="post-content">
           {{ .Page.Content }}
         </div>
 

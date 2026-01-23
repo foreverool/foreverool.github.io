@@ -1,0 +1,239 @@
+/* Toha主题 - VLook Hope风格Markdown样式 | 核心：极简高可读+温暖治愈 + 网格背景（匹配参考视觉） */
+/* 适配Toha的核心容器：优先覆盖主题默认样式 */
+ .markdown-content {
+  /* VLook核心：高可读字体+1.8倍行高（强制覆盖Toha默认） */
+  font-family: 'Inter', 'PingFang SC', '思源宋体', '微软雅黑', sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.8 !important; /* VLook标志性行高，保证阅读舒适度 */
+  color: #444746 !important; /* 柔灰文字，不刺眼 */
+  
+  /* Hope风格+参考视觉：温润米白底色 + 细微网格纹理 */
+  background-color: #faf9f7 !important;
+  background-image: 
+    linear-gradient(rgba(200, 200, 200, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 200, 200, 0.05) 1px, transparent 1px) !important;
+  background-size: 20px 20px !important; /* 细微网格，匹配参考图片质感 */
+  
+  /* 容器排版（适配Toha布局） */
+  max-width: 820px !important;
+  margin: 0 auto !important;
+  padding: 24px 28px !important;
+  border-radius: 10px !important;
+  /* 轻微质感阴影，增加层次但不厚重 */
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* 标题：VLook极简层级 + Hope温暖色彩 + 参考图片浅蓝背景条 */
+ .markdown-content h1 {
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  margin: 36px 0 18px !important;
+  color: #4a7b9d !important; /* 淡湖蓝主色（匹配参考图片标题文字） */
+  background-color: #e8f4f8 !important; /* 标题浅蓝背景条（核心视觉） */
+  text-align: center !important; /* 匹配参考图片标题居中 */
+  padding: 10px 0 !important;
+  border-radius: 6px !important;
+  letter-spacing: 0.3px !important;
+}
+
+ .markdown-content h2 {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  margin: 30px 0 15px !important;
+  color: #5a8ba8 !important; /* 浅湖蓝，层级呼应 */
+  background-color: #eff7fb !important; /* 稍浅的蓝背景条 */
+  text-align: center !important;
+  padding: 8px 0 !important;
+  border-radius: 6px !important;
+}
+
+ .markdown-content h3 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  margin: 26px 0 12px !important;
+  color: #6a9bb8 !important; /* 浅灰蓝，层级清晰 */
+  background-color: #f5fafe !important;
+  text-align: center !important;
+  padding: 6px 0 !important;
+  border-radius: 6px !important;
+}
+
+ .markdown-content h4, 
+ .markdown-content h5, 
+ .markdown-content h6 {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  margin: 22px 0 10px !important;
+  color: #4a7b9d !important;
+  border-left: 3px solid #5a8ba8 !important; /* 极简左侧线条装饰 */
+  padding-left: 10px !important;
+}
+
+/* 段落：VLook充足间距 + Hope温润排版（适配Toha） */
+ .markdown-content p {
+  margin: 14px 0 !important;
+  text-align: justify !important;
+  letter-spacing: 0.2px !important; /* 轻微字间距，提升可读性 */
+}
+
+/* 列表：VLook极简符号 + Hope柔和色彩 */
+ .markdown-content ul, 
+ .markdown-content ol {
+  margin: 14px 0 !important;
+  padding-left: 28px !important;
+}
+
+ .markdown-content li {
+  margin: 8px 0 !important;
+}
+
+/* 无序列表：Hope淡湖蓝小圆点 */
+ .markdown-content ul li {
+  list-style-type: none !important;
+  position: relative !important;
+}
+ .markdown-content ul li::before {
+  content: "" !important;
+  position: absolute !important;
+  left: -20px !important;
+  top: 10px !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background-color: #5a8ba8 !important;
+}
+
+/* 有序列表：Hope浅湖蓝数字 */
+ .markdown-content ol li {
+  color: #5a8ba8 !important;
+}
+ .markdown-content ol li span {
+  color: #444746 !important; /* 列表文字恢复柔灰 */
+}
+
+/* 链接：VLook极简下划线 + Hope hover渐变 */
+ .markdown-content a {
+  color: #5a8ba8 !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(90, 139, 168, 0.3) !important;
+  transition: all 0.2s ease !important;
+}
+ .markdown-content a:hover {
+  color: #4a7b9d !important;
+  border-bottom: 1px solid #4a7b9d !important;
+  background-color: rgba(90, 139, 168, 0.04) !important; /* 轻微底色，治愈感 */
+}
+
+/* 引用块：VLook极简边框 + Hope浅底色 */
+ .markdown-content blockquote {
+  margin: 20px 0 !important;
+  padding: 16px 20px !important;
+  background-color: #f5f4f1 !important; /* 浅米色背景 */
+  border-left: 4px solid #5a8ba8 !important;
+  border-radius: 6px !important;
+  color: #4a7b9d !important;
+}
+
+/* 代码：VLook极简风格 + Hope浅灰底色 */
+ .markdown-content code {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+  font-size: 90% !important;
+  border-radius: 6px !important;
+}
+
+/* 行内代码：VLook浅灰背景 + Hope柔和边框 */
+ .markdown-content p code, 
+ .markdown-content li code, 
+ .markdown-content h1 code, 
+ .markdown-content h2 code {
+  padding: 3px 8px !important;
+  background-color: #f1f0ee !important;
+  color: #8b5a2b !important; /* 浅棕文字，不突兀 */
+  border: 1px solid #e8e6e2 !important;
+}
+
+/* 代码块：VLook极简 + Hope浅灰底色 */
+ .markdown-content pre {
+  margin: 20px 0 !important;
+  padding: 20px !important;
+  background-color: #f1f0ee !important;
+  color: #444746 !important;
+  border-radius: 8px !important;
+  overflow-x: auto !important;
+  border: 1px solid #e8e6e2 !important;
+}
+ .markdown-content pre code {
+  background: none !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* 表格：VLook极简 + Hope温润配色 */
+ .markdown-content table {
+  margin: 20px 0 !important;
+  border-collapse: collapse !important;
+  width: 100% !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.02) !important;
+}
+
+ .markdown-content th {
+  padding: 12px 16px !important;
+  background-color: #5a8ba8 !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+ .markdown-content td {
+  padding: 12px 16px !important;
+  color: #444746 !important;
+  border-bottom: 1px solid #e8e6e2 !important;
+}
+
+ .markdown-content tr:nth-child(even) {
+  background-color: #f5f4f1 !important;
+}
+
+/* 图片：VLook居中 + Hope轻微质感 */
+ .markdown-content img {
+  display: block !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 24px auto !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  transition: transform 0.2s ease !important;
+}
+ .markdown-content img:hover {
+  transform: scale(1.01) !important;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 水平线：VLook极简 + Hope渐变分割 */
+ .markdown-content hr {
+  border: none !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, #e8e6e2, transparent) !important;
+  margin: 40px 0 !important;
+}
+
+/* 移动端适配：VLook响应式 + Hope适配小屏幕（适配Toha移动端） */
+@media (max-width: 768px) {
+ .markdown-content {
+    font-size: 15px !important;
+    padding: 20px 20px !important;
+    max-width: 100% !important;
+    border-radius: 8px !important;
+  }
+ .markdown-content h1 {
+    font-size: 24px !important;
+  }
+ .markdown-content h2 {
+    font-size: 22px !important;
+  }
+  .markdown-content h3 {
+    font-size: 19px !important;
+  }
+}
