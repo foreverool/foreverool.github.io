@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>解耦 on foreverool's blog</title><link>https://foreverool.github.io/notes/golang-notes/ultimate-go-notebook/decoupling/</link><description>Recent content in 解耦 on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 24 Jan 2026 22:25:06 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/notes/golang-notes/ultimate-go-notebook/decoupling/index.xml" rel="self" type="application/rss+xml"/><item><title>interface</title><link>https://foreverool.github.io/notes/golang-notes/ultimate-go-notebook/decoupling/interface/</link><pubDate>Sat, 24 Jan 2026 22:25:35 +0800</pubDate><guid>https://foreverool.github.io/notes/golang-notes/ultimate-go-notebook/decoupling/interface/</guid><description>&lt;div class="note-card "&gt;
+&lt;div class="item"&gt;
+&lt;h5 class="note-title"&gt;&lt;span&gt;&lt;/span&gt;&lt;/h5&gt;
+&lt;div class="card"&gt;
+&lt;div class="card-body"&gt;&lt;h1 id="接口"&gt;接口&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;面向接口编程，面向接口编程，面向接口编程&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;解耦： 解耦意味着减少组件之间及其所使用数据类型之间的依赖关系。进而提升程序的正确性、质量及可维护性。&lt;/p&gt;</description></item></channel></rss>
