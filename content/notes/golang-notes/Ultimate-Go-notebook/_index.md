@@ -5,5 +5,5 @@ menu:
     name: 《Ultimate Go Notebook》
     identifier: ultimate-go-notebook
     parent: notes-go
-    weight: 1
+    weight: 2
 ---
