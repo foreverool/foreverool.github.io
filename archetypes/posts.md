@@ -2,6 +2,7 @@
 title: '{{ replace .File.ContentBaseName "-" " " | title }}'
 date: '{{ .Date }}'
 hero: 
+draft: false
 description: ""
 theme: Toha
 menu:
