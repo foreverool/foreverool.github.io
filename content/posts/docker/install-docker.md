@@ -1,7 +1,6 @@
 ---
 title: 'Install Docker'
 date: '2026-01-29T19:38:31+08:00'
-draft: true
 hero: 
 description: ""
 theme: Toha
