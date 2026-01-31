@@ -118,8 +118,7 @@ git push -u origin main
 
 然后配置Github Action权限
 
-<img src="images/posts/deploy-hugo-blog/deploy-to-github/image-20260112061756301.png" alt="image-20260112061756301" style="zoom:67%;" />
-
+![image-20260112061854342](images/posts/deploy-hugo-blog/deploy-to-github/image-20260112061756301.png)
 
 
 

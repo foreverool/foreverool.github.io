@@ -1,5 +1,5 @@
 ---
-title: 'What Is Docker'
+title: 'What is Docker'
 date: '2026-01-29T19:38:22+08:00'
 hero: 
 description: ""
@@ -49,8 +49,7 @@ menu:
 第一种类型的Hypervisor一般用于企业端，直接跑在硬件上不需要依赖操作系统，在硬件之上虚拟多个操作系统。
 
 第二种类型的Hypervisor一般是面向于个人，比如`vmware workstation`软件，我们可以在操作系统上安装多个不同的操作系统。
-
-<img src="/images/posts/docker/image-20260128132438989.png" alt="image-20260128132438989" style="zoom:67%;" />
+![image-20260129174328384](/images/posts/docker/image-20260128132438989.png)
 
 在windows上的`wsl`也是使用的第二种类型的`Hypervisor`。
 
