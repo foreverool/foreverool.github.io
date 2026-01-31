@@ -15,7 +15,7 @@
     <div class="row" id="recent-post-cards">
       {{ range $post := .posts}}
         {{ with site.GetPage $post }}
-          {{ partial "cards/post.html" . }}
+          {{ partial "cards/catelogies.html" . }}
         {{ end }}
       {{ end }}
     </div>
