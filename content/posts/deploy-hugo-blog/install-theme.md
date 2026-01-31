@@ -5,6 +5,10 @@ hero:
 description: ""
 theme: Toha
 draft: false
+tags:
+  - hugo
+  - blog
+  - toha
 menu:
   sidebar:
     name: 安装主题

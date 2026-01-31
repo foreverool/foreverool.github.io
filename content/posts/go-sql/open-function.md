@@ -5,6 +5,11 @@ hero:
 draft: false
 description: ""
 theme: Toha
+tags:
+  - go
+  - sql
+  - database
+
 menu:
   sidebar:
     name: database/sql中的Open函数

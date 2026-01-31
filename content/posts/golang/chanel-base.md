@@ -6,6 +6,11 @@ hero:
 description: ""
 theme: Toha
 draft: false
+tags:
+  - go
+  - chanel
+  - concurrency
+
 menu:
   sidebar:
     name: 

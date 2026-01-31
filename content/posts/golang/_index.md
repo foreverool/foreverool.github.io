@@ -1,6 +1,6 @@
 ---
 title: Golang
-hero: images/posts/golang/go_sitereliability_case_study.png
+hero:
 draft: false
 menu:
   sidebar:

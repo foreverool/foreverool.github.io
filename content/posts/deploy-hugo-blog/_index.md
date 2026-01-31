@@ -1,6 +1,6 @@
 ---
 title: 搭建hugo博客
-hero: /images/posts/blog/hugo.png
+hero: 
 draft: false
 menu:
   sidebar:

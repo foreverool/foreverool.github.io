@@ -1,3 +1,4 @@
+{{ $page := . }}
 {{/* check if there is any hero image in the same folder as the markdown file */}}
 {{ $heroImage := .Page.Resources.GetMatch "hero.{jpg,png,svg}"}}
 
@@ -14,8 +15,33 @@
 
 {{/* if hero image is not provided, then use the default hero image */}}
 {{ if not $heroImage }}
-  {{ $heroImage := resources.Get "images/default-hero.jpg"}}
-  {{ .Scratch.Set "heroScratch" $heroImage }}
+ {{/* 配置随机图：assets下的目录路径（**匹配目录下所有文件，可改路径**） */}}
+  {{ $randomHeroDir := "/images/hero-random/**" }}
+  {{/* 允许的图片格式（与原hero图格式一致，可扩展） */}}
+  {{ $allowFormats := slice "jpg" "jpeg" "png" "svg" "webp" }}
+  {{/* 从assets匹配随机目录下的所有资源 */}}
+  {{ $randomImgs := resources.Match $randomHeroDir }}
+  
+  {{ with $randomImgs }}
+    {{/* 过滤有效图片格式，排除非图片文件 */}}
+    {{ $validImgs := where . "MediaType.SubType" "in" $allowFormats }}
+    {{ with $validImgs }}
+      {{/* 随机打乱数组，取第一张作为hero图 */}}
+       {{ $randomHero := "" }}
+      {{ range first 1 (shuffle .) }}
+      {{ $randomHero = . }}
+      {{ end }}
+      {{ $page.Scratch.Set "heroScratch" $randomHero }}  {{/* 存到Scratch */}}
+    {{ else }}
+      {{/* 随机目录无有效图片，回退到原默认图 */}}
+      {{ $defaultHero := resources.Get "/images/default-hero.jpg"}}
+      {{ $page.Scratch.Set "heroScratch" $defaultHero }}
+    {{ end }}
+  {{ else }}
+    {{/* 随机目录不存在/无文件，回退到原默认图 */}}
+    {{ $defaultHero := resources.Get "/images/default-hero.jpg"}}
+    {{ $page.Scratch.Set "heroScratch" $defaultHero }}
+  {{ end }}
 {{ end }}
 
 {{ $heroImage := .Scratch.Get "heroScratch" }}

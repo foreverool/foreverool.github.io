@@ -5,6 +5,11 @@ hero:
 description: ""
 theme: Toha
 draft: false
+tags:
+  - hugo
+  - blog
+  - giscus
+
 menu:
   sidebar:
     name: 使用giscus作为hugo博客的评论系统

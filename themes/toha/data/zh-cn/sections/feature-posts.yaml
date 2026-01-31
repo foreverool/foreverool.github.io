@@ -11,5 +11,5 @@ section:
 posts:
   - golang
   - deploy-hugo-blog
-  - docker
+  - dockers
   - mysql

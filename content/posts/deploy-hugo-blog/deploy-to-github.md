@@ -5,7 +5,10 @@ hero:
 description: ""
 theme: Toha
 draft: false
-
+tags:
+  - hugo
+  - blog
+  - github pages
 menu:
   sidebar:
     name: 部署到Github
