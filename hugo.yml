@@ -133,6 +133,8 @@ params:
           theme: default
           # Theme for dark mode (default: 'dark')
           darkTheme: dark
+          securityLevel: 'loose'  # 允许加载外部插件
+          
     
     # Enable this to create mathematic expressions using `$$` blocks
     math:

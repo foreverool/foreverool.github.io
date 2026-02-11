@@ -1,12 +1,15 @@
 import mermaid from 'mermaid'
 import * as params from '@params'
-
+import zenuml from '@mermaid-js/mermaid-zenuml'
 const mermaidOptions = params.flowchart?.mermaid || {}
-
+mermaid.registerExternalDiagrams([zenuml]);
 // Get theme configuration
 const lightTheme = mermaidOptions.theme || 'default'
 const darkTheme = mermaidOptions.darkTheme || 'dark'
-
+ mermaid.initialize({ 
+    startOnLoad: true,
+    // 可添加其他Mermaid配置
+  });
 // Function to get current site theme
 function getCurrentTheme() {
   const htmlElement = document.documentElement
