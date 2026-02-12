@@ -6,6 +6,9 @@ draft: false
 description: ""
 theme: Toha
 tags:
+- I/O
+- Network
+
 menu:
   sidebar:
     name: I/O模型前置概念
@@ -110,13 +113,4 @@ sequenceDiagram
 
 {{< /mermaid >}}
 
-{{< mermaid align="center">}}
-zenuml
-    title Demo
-    Alice->John: Hello John, how are you?
-    John->Alice: Great!
-    Alice->John: See you later!
-
-
-{{< /mermaid >}}
 

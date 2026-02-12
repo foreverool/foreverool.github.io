@@ -9,8 +9,8 @@ tags:
 
 menu:
   sidebar:
-    name: 
-    identifier: network
+    name: Network
+    identifier: cs-network
     parent: 
     weight: 10
 ---
