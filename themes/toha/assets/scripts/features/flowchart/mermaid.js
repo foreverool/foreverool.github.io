@@ -1,6 +1,6 @@
 import mermaid from 'mermaid'
 import * as params from '@params'
-import zenuml from './mermaid-zenuml/dist/mermaid-zenuml.core.mjs'
+import zenuml from './mermaid-zenuml/dist/mermaid-zenuml.esm.min.mjs'
 const mermaidOptions = params.flowchart?.mermaid || {}
 mermaid.registerExternalDiagrams([zenuml]);
 // Get theme configuration
