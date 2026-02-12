@@ -195,7 +195,7 @@ params:
  # 打赏按钮配置
   tipButton:
     enable: true                  # 是否启用打赏功能
-    iconPath: "https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/29abf2f1909549d9b349623ce2f63c9a~tplv-a9rns2rl98-image.image?rcl=20260110223047F413F4F7E44DE37CA261&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1770647481&x-signature=p4RnGOQT983ibuk06MWrJzNPd%2FQ%3D"  # 咖啡图标路径
+    iconPath: "/images/coffe.jpg"  # 咖啡图标路径
     iconAlt: "请我喝咖啡"          # 图标替代文本
     title: "请我喝杯咖啡吧！"      # 模态窗口标题
     thankText: "感谢您的支持与鼓励！"  # 感谢文本
