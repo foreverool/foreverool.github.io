@@ -27,7 +27,8 @@
       "popper.js": "toha",
       "postcss": "toha",
       "postcss-cli": "toha",
-      "typeit": "toha"
+      "typeit": "toha",
+       "@mermaid-js/mermaid-zenuml": "^0.2.2"
     }
   },
   "dependencies": {
@@ -60,7 +61,8 @@
     "popper.js": "^1.16.1",
     "postcss": "^8.4.41",
     "postcss-cli": "^11.0.0",
-    "typeit": "^8.8.7"
+    "typeit": "^8.8.7",
+    "@mermaid-js/mermaid-zenuml": "^0.2.2"
   },
   "name": "foreverool.github.io",
   "version": "0.1.0"
