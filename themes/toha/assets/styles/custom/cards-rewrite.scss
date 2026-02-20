@@ -1,0 +1,143 @@
+// 定义毛玻璃通用混合宏（方便复用）
+@mixin glass-effect($bg-color, $border-opacity: 0.1, $blur: 8px) {
+  background: rgba($bg-color, 0.85); // 半透明背景（核心1）
+  backdrop-filter: blur($blur);      // 背景模糊（核心2）
+  -webkit-backdrop-filter: blur($blur); // 兼容webkit内核浏览器
+  border: 1px solid rgba(white, $border-opacity); // 半透明白色边框增强质感
+}
+
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); // 微调阴影适配毛玻璃
+  @include transition();
+  overflow: hidden;
+  // 替换原有纯色背景为毛玻璃效果
+  @include glass-effect(get-light-color('bg-card'), 0.1);
+
+  &:hover,
+  &:focus {
+    box-shadow: $box-shadow, 0 8px 24px rgba(0, 0, 0, 0.1); // 增强hover阴影
+    border: 1px solid rgba(get-light-color('bg-primary'), 0.3); // 半透明主色边框
+    @include transition();
+    .card-img-top {
+      transform: scale(1.2);
+      object-fit: cover;
+      @include transition();
+    }
+  }
+
+  .card-head {
+    height: 172px;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .card-title {
+    font-size: large;
+  }
+
+  .card-body {
+    text-align: left;
+  }
+
+  .card-img-top {
+    -o-object-fit: cover;
+       object-fit: cover;
+    @include transition();
+  }
+
+  .card-img-sm {
+    width: 32px;
+    height: 32px;
+  }
+
+  .card-img-xs {
+    width: 24px;
+    height: 24px;
+  }
+
+  .card-footer {
+    // 卡片底部也应用毛玻璃
+    @include glass-effect(get-light-color('bg-card'), 0.1) ;
+    a.btn {
+      text-decoration: none !important;
+    }
+  }
+}
+
+.post-card {
+  width: 24rem;
+  display: inline-flex;
+
+  .post-card-link {
+    text-decoration: none !important;
+    color: get-light-color('text-color');
+  }
+
+  .card {
+    margin: 5px;
+    position: relative; // 确保毛玻璃效果正常（父级定位）
+
+    &:hover,
+    &:focus {
+      .card-img-top {
+        transform: scale(1.2);
+        -o-object-fit: cover;
+           object-fit: cover;
+        @include transition();
+      }
+    }
+
+    .card-body {
+      padding: 1.25rem !important;
+      padding-bottom: 0 !important;
+
+      .post-summary {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        max-height: 144px;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+      }
+    }
+    
+    .card-footer {
+      margin-top: auto;
+      // 覆盖原有背景，保持毛玻璃一致性
+      @include glass-effect(get-light-color('bg-card'), 0.1) ;
+
+      span {
+        font-size: 10pt;
+        color: get-light-color('muted-text-color') !important;
+        padding-top: 5px;
+      }
+    }
+  }
+}
+
+// 深色模式下的毛玻璃适配
+html[data-theme='dark'] {
+  .card {
+    // 深色模式毛玻璃（调整背景透明度和边框）
+    @include glass-effect(get-dark-color('bg-card'), 0.2);
+
+    &:hover,
+    &:focus {
+      border: 1px solid rgba(get-dark-color('accent-color'), 0.3); // 增强深色模式边框透明度
+    }
+    
+    .card-footer {
+      @include glass-effect(get-dark-color('bg-card'), 0.2) ;
+    }
+  }
+
+  .post-card {
+    .card {
+      .card-footer {
+        span {
+          color: get-dark-color('muted-text-color') !important;
+        }
+      }
+    }
+  }
+}
