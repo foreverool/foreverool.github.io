@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on foreverool's blog</title><link>https://foreverool.github.io/posts/</link><description>Recent content in Posts on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 13 Jan 2026 04:41:55 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>解决在Typora使用zenuml异常</title><link>https://foreverool.github.io/posts/software-use-tips/typora/handle-zenuml-exception/</link><pubDate>Thu, 12 Feb 2026 11:43:47 +0800</pubDate><guid>https://foreverool.github.io/posts/software-use-tips/typora/handle-zenuml-exception/</guid><description>&lt;h1 id="解决在typora使用zenuml异常"&gt;解决在Typora使用zenuml异常&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on foreverool's blog</title><link>https://foreverool.github.io/posts/</link><description>Recent content in Posts on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 13 Jan 2026 04:41:55 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>后续遍历</title><link>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/post-order/</link><pubDate>Fri, 20 Feb 2026 22:46:02 +0800</pubDate><guid>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/post-order/</guid><description>&lt;h1 id="后续遍历"&gt;后续遍历&lt;/h1&gt;
+&lt;p&gt;后续遍历二叉树的节点顺序为 先遍历左子树，然后遍历右子树，最后遍历根节点。&lt;/p&gt;
+&lt;p&gt;左-&amp;gt;右-&amp;gt;根&lt;/p&gt;
+&lt;div class="mermaid" align="center" style="background-color: none; border-radius: 5px;"&gt;
+graph TD
+A((10)) --&gt; B((5))
+A --&gt; C((15))
+B --&gt; D((2))
+B --&gt; E((7))
+&lt;/div&gt;
+&lt;p&gt;上述二叉树后续遍历的节点顺序为：&lt;/p&gt;</description></item><item><title>中序遍历</title><link>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/in-order/</link><pubDate>Fri, 20 Feb 2026 22:45:57 +0800</pubDate><guid>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/in-order/</guid><description>&lt;h1 id="中序遍历"&gt;中序遍历&lt;/h1&gt;
+&lt;p&gt;二叉树的中序遍历顺序为优先遍历左子树，然后再遍历根元素，之后遍历右子树。&lt;/p&gt;
+&lt;p&gt;左-&amp;gt;中-&amp;gt;右的遍历顺序。&lt;/p&gt;
+&lt;div class="mermaid" align="center" style="background-color: none; border-radius: 5px;"&gt;
+graph TD
+A((10)) --&gt; B((5))
+A --&gt; C((15))
+B --&gt; D((2))
+B --&gt; E((7))
+&lt;/div&gt;
+&lt;p&gt;上述二叉树其中序遍历节点顺序为：&lt;/p&gt;</description></item><item><title>前序遍历</title><link>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/pre-order/</link><pubDate>Fri, 20 Feb 2026 22:45:53 +0800</pubDate><guid>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/pre-order/</guid><description>&lt;h1 id="前序遍历"&gt;前序遍历&lt;/h1&gt;
+&lt;p&gt;前序遍历主要是指中间节点的遍历顺序，其遍历节点的顺序为 中-&amp;gt;左-&amp;gt;右。&lt;/p&gt;
+&lt;div class="mermaid" align="center" style="background-color: none; border-radius: 5px;"&gt;
+graph TD
+A((10)) --&gt; B((5))
+A --&gt; C((15))
+B --&gt; D((2))
+B --&gt; E((7))
+&lt;/div&gt;
+&lt;p&gt;上述二叉树的前序遍历访问节点顺序：&lt;/p&gt;</description></item><item><title>解决在Typora使用zenuml异常</title><link>https://foreverool.github.io/posts/software-use-tips/typora/handle-zenuml-exception/</link><pubDate>Thu, 12 Feb 2026 11:43:47 +0800</pubDate><guid>https://foreverool.github.io/posts/software-use-tips/typora/handle-zenuml-exception/</guid><description>&lt;h1 id="解决在typora使用zenuml异常"&gt;解决在Typora使用zenuml异常&lt;/h1&gt;
 &lt;p&gt;本人之前使用&lt;code&gt;typora 1.4&lt;/code&gt;版本是不支持&lt;code&gt;zenuml&lt;/code&gt;,在&lt;code&gt;typora1.7&lt;/code&gt;版本之后都是支持&lt;code&gt;zenuml&lt;/code&gt;,所以今天安装了最新版本的&lt;code&gt;typora&lt;/code&gt;。但是在安装完成之后发现&lt;code&gt;zenuml&lt;/code&gt;虽然不会提示错误，但是显示的内容排版有问题。&lt;/p&gt;</description></item><item><title>I/O模型前置概念</title><link>https://foreverool.github.io/posts/cs-network/io-model/io-model-concept/</link><pubDate>Sun, 08 Feb 2026 00:32:32 +0800</pubDate><guid>https://foreverool.github.io/posts/cs-network/io-model/io-model-concept/</guid><description>&lt;h1 id="io模型"&gt;I/O模型&lt;/h1&gt;
 &lt;p&gt;Unix 可用的I/O模型主要分为五类：&lt;/p&gt;
 &lt;ul&gt;

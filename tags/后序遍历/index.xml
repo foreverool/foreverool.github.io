@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>后序遍历 on foreverool's blog</title><link>https://foreverool.github.io/tags/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/</link><description>Recent content in 后序遍历 on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 20 Feb 2026 22:46:02 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/tags/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/index.xml" rel="self" type="application/rss+xml"/><item><title>后续遍历</title><link>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/post-order/</link><pubDate>Fri, 20 Feb 2026 22:46:02 +0800</pubDate><guid>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/post-order/</guid><description>&lt;h1 id="后续遍历"&gt;后续遍历&lt;/h1&gt;
+&lt;p&gt;后续遍历二叉树的节点顺序为 先遍历左子树，然后遍历右子树，最后遍历根节点。&lt;/p&gt;
+&lt;p&gt;左-&amp;gt;右-&amp;gt;根&lt;/p&gt;
+&lt;div class="mermaid" align="center" style="background-color: none; border-radius: 5px;"&gt;
+graph TD
+A((10)) --&gt; B((5))
+A --&gt; C((15))
+B --&gt; D((2))
+B --&gt; E((7))
+&lt;/div&gt;
+&lt;p&gt;上述二叉树后续遍历的节点顺序为：&lt;/p&gt;</description></item></channel></rss>
