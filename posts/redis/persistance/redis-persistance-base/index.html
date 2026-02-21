@@ -1,0 +1,135 @@
+<!doctype html><html lang=zh-cn><head><title>Redis持久化基础</title><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="ie=edge"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/cal-heatmap@4.2.3/dist/cal-heatmap.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/cal-heatmap@4.2.3/dist/cal-heatmap.min.js crossorigin=anonymous></script><link rel=stylesheet href=/application.026930991316c0397817040ae355e36eab3183c368d72c19b3c3ef584cc04668.css integrity="sha256-AmkwmRMWwDl4FwQK41Xjbqsxg8No1ywZs8PvWEzARmg="><link rel=icon type=image/png href=/images/favicon_hu_c56d8f99d6baf5c5.png><meta property="og:title" content="foreverool's blog"><meta property="og:type" content="website"><meta property="og:description" content="foreverool 的博客"><meta property="og:image" content="/images/avatar2.png"><meta property="og:url" content="https://foreverool.github.io/"><meta name=description content="Redis持久化基础"><script integrity="sha256-DO4ugzEwhTW1Id1UIWn0gUJWaebCYOypeTit6LW4QB4=">let theme=localStorage.getItem("theme-scheme")||localStorage.getItem("darkmode:color-scheme")||"light";theme==="system"&&(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?theme="dark":theme="light"),document.documentElement.setAttribute("data-theme",theme)</script></head><body class="type-posts kind-page" data-bs-spy=scroll data-bs-target=#TableOfContents data-bs-offset=80><div class="container-fluid bg-secondary wrapper"><nav class="navbar navbar-expand-xl top-navbar shadow" id=top-navbar><div class=container><button class="navbar-toggler navbar-light" id=sidebar-toggler type=button>
+<i data-feather=sidebar></i>
+</button>
+<a class=navbar-brand href=/><img src=/images/main-logo_hu_b4ca8dcb406ed5a7.png id=logo alt=Logo>
+foreverool's blog</a>
+<button class="navbar-toggler navbar-light" id=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#top-nav-items aria-label=menu>
+<i data-feather=menu></i></button><div class="collapse navbar-collapse dynamic-navbar" id=top-nav-items><ul class="nav navbar-nav ms-auto"><li class=nav-item><a class=nav-link href=/#home>主页</a></li><li class=nav-item><a class=nav-link href=/#recent-posts>最新发布</a></li><li class=nav-item><a class=nav-link href=/#category-posts>分类</a></li><li class=nav-item><a class=nav-link href=/#projects>Projects</a></li><li class=nav-item><a class=nav-link href=/#about>About</a></li><div id=top-navbar-divider></div><li class=nav-item><a class=nav-link id=blog-link href=/posts>文章</a></li><li class=nav-item><a class=nav-link id=note-link href=/notes>笔记</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href=# id=themeSelector role=button data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false><img id=navbar-theme-icon-svg class=theme-icon src=/icons/moon-svgrepo-com.svg width=20 alt="Dark Theme"></a><div id=themeMenu class="dropdown-menu dropdown-menu-icons-only" aria-labelledby=themeSelector><a class="dropdown-item nav-link" href=# data-scheme=light><img class=theme-icon src=/icons/sun-svgrepo-com.svg width=20 alt="Light Theme">
+</a><a class="dropdown-item nav-link" href=# data-scheme=dark><img class=theme-icon src=/icons/moon-svgrepo-com.svg width=20 alt="Dark Theme">
+</a><a class="dropdown-item nav-link" href=# data-scheme=system><img class=theme-icon src=/icons/computer-svgrepo-com.svg width=20 alt="System Theme"></a></div></li></ul></div></div><img src=/images/main-logo_hu_b4ca8dcb406ed5a7.png class=d-none id=main-logo alt=Logo>
+<img src=/images/inverted-logo_hu_3aa5006eac892b40.png class=d-none id=inverted-logo alt="Inverted Logo"></nav><section class=sidebar-section id=sidebar-section><div class=sidebar-holder><div class=sidebar id=sidebar><form class=mx-auto method=get action=/search><input type=text name=keyword placeholder=搜索 data-search id=search-box></form><div class=sidebar-tree><ul class=tree id=tree><li id=list-heading><a href=/posts/ data-filter=all>文章</a></li><div class=subtree><li><i data-feather=plus-circle></i><a class=list-link href=/posts/algorithms/> Algorithms</a><ul><li><i data-feather=plus-circle></i><a class=list-link href=/posts/algorithms/binary-tree/> Binary Tree</a><ul><li><i data-feather=plus-circle></i><a class=list-link href=/posts/algorithms/binary-tree/dfs/> DFS</a><ul><li><a class=list-link href=/posts/algorithms/binary-tree/dfs/in-order/ title=中序遍历>中序遍历</a></li><li><a class=list-link href=/posts/algorithms/binary-tree/dfs/pre-order/ title=前序遍历>前序遍历</a></li><li><a class=list-link href=/posts/algorithms/binary-tree/dfs/post-order/ title=后续遍历>后续遍历</a></li></ul></li></ul></li></ul></li><li><i data-feather=plus-circle></i><a class=list-link href=/posts/dockers/> docker</a><ul><li><a class=list-link href=/posts/dockers/what-is-docker/ title=什么是docker>什么是docker</a></li><li><a class=list-link href=/posts/dockers/install-docker/ title=安装docker>安装docker</a></li><li><a class=list-link href=/posts/dockers/docker-base-operate/ title=操作docker>操作docker</a></li></ul></li><li><i data-feather=plus-circle></i><a class=list-link href=/posts/go-sql/> go-sql</a><ul><li><a class=list-link href=/posts/go-sql/open-function/ title=database/sql中的Open函数>database/sql中的Open函数</a></li></ul></li><li><a class=list-link href=/posts/mysql/ title=MySQL>MySQL</a></li><li><a class=list-link href=/posts/cs-network/ title=Network>Network</a></li><li><i data-feather=minus-circle></i><a class="active list-link" href=/posts/redis/> Redis</a><ul class=active><li><i data-feather=minus-circle></i><a class="active list-link" href=/posts/redis/persistance/> 持久化</a><ul class=active><li><a class="active list-link" href=/posts/redis/persistance/redis-persistance-base/ title=Redis持久化基础>Redis持久化基础</a></li></ul></li></ul></li><li><i data-feather=plus-circle></i><a class=list-link href=/posts/software-use-tips/> 软件使用技巧</a><ul><li><i data-feather=plus-circle></i><a class=list-link href=/posts/software-use-tips/typora/> typora</a><ul><li><a class=list-link href=/posts/software-use-tips/typora/handle-zenuml-exception/ title=解决zenuml在typora中的异常>解决zenuml在typora中的异常</a></li></ul></li></ul></li><li><i data-feather=plus-circle></i><a class=list-link href=/posts/golang/> Golang</a><ul><li><a class=list-link href=/posts/golang/chanel-base/ title="Chanel Base">Chanel Base</a></li></ul></li><li><i data-feather=plus-circle></i><a class=list-link href=/posts/deploy-hugo-blog/> 搭建hugo博客</a><ul><li><a class=list-link href=/posts/deploy-hugo-blog/install/ title=下载安装hugo>下载安装hugo</a></li><li><a class=list-link href=/posts/deploy-hugo-blog/install-theme/ title=安装主题>安装主题</a></li><li><a class=list-link href=/posts/deploy-hugo-blog/deploy-to-github/ title=部署到Github>部署到Github</a></li><li><a class=list-link href=/posts/deploy-hugo-blog/deploy-comment/ title=使用giscus作为hugo博客的评论系统>使用giscus作为hugo博客的评论系统</a></li></ul></li><li><i data-feather=plus-circle></i><a class=list-link href> network</a><ul><li><i data-feather=plus-circle></i><a class=list-link href=/posts/cs-network/io-model/> I/O 模型</a><ul><li><a class=list-link href=/posts/cs-network/io-model/io-model-concept/ title=I/O模型前置概念>I/O模型前置概念</a></li></ul></li></ul></li></div></ul></div></div></div></section><section class=content-section id=content-section><div class=content><div class="container p-0 read-area"><div class="hero-area col-sm-12" id=hero-area style=background-image:url(/images/hero-random/83da6f121afae331958b32cab67246734a12280f9cec0-jrKUHb.jpg)></div><div class=page-content><div class="author-profile ms-auto align-self-lg-center"><img class=rounded-circle src=/images/avatar2_hu_7852a7e25db64f97.png alt="Author Image"><h5 class=author-name>foreverool</h5><p class=text-muted>发布于 2026年2月22日| 4032字 | 9 分钟</p></div><div class=title><h1>Redis持久化基础</h1></div><div class=tags><ul style=padding-left:0><li><a href=/tags/redis/ class="btn btn-sm btn-outline-info rounded">Redis</a></li><li><a href=/tags/aof/ class="btn btn-sm btn-outline-info rounded">AOF</a></li><li><a href=/tags/rdb/ class="btn btn-sm btn-outline-info rounded">RDB</a></li></ul></div><div class=post-content id=post-content><h1 id=redis宕机之后快速恢复数据>Redis宕机之后快速恢复数据</h1><h2 id=rdb内存快照>RDB内存快照</h2><p>内存快照就是指redis内存中的数据某一时刻的状态数据。将该状态的数据保存称RDB文件形式写入磁盘中。</p><div class=mermaid align=center style=background-color:none;border-radius:5px>graph LR
+%% 节点定义
+REQ((写请求))
+RDS[Redis]
+T1([T1 时刻数据快照])
+T2([T2 时刻数据快照])
+T3([T3 时刻数据快照])
+DB[(磁盘)]
+%% 连线关系
+REQ --> RDS
+RDS --> T1
+T1 --> T2
+T2 --> T3
+%% 指向磁盘的曲线
+T1 -.-> DB
+T2 -.-> DB
+T3 -.-> DB
+%% 样式美化
+classDef yellow fill:#fff9e6,stroke:#e6b800,stroke-width:2px;
+classDef blue fill:#e6f7ff,stroke:#006699,stroke-width:2px;
+classDef red fill:#ffe6e6,stroke:#990000,stroke-width:2px;
+class REQ,DB yellow;
+class RDS blue;
+class T1,T2,T3 red;
+%% 全局配置 (仅在支持的主屏渲染器有效)
+linkStyle default stroke:#5f9ea0,stroke-width:2px;</div><p>Redis通过定时执行RDB内存快照，而不是每次写数据的时候进行写入到磁盘中。</p><p>如果redis宕机了，可以直接将RDB文件读入内存中恢复。</p><h4 id=写时复制技术>写时复制技术</h4><p>写时复制技术的核心思想： 只有在任意进程尝试写入数据的时候，才将主进程的数据拷贝到子进程当中。</p><p>COW流程：</p><ul><li>初始阶段：父进程和子进程的虚拟地址指向相同的物理内存页，这些页被标记为只读。</li><li>触发阶段： 当任意一个进程尝试写入数据时，硬件会触发一个“缺页中断”。</li><li>执行阶段：内核意识到这是一个COW页时，于是申请一个新的物理内存页，将原数据拷贝过去，并且修改该进程的页表指向新页。此时该页变为“可读写”。</li></ul><p>COW的优点主要是，创建进程速度极快，减少内存开销。</p><p>COW最终要的一点是：<strong>一开始父子进程都指向同一物理地址，但是当任意进程修改数据的时候，只复制修改的页，而不是所有页</strong></p><h3 id=生成rdb策略>生成RDB策略</h3><p>Redis提供了两个指令用于生成RDB文件：</p><ul><li><code>save</code>:主线程执行，会阻塞</li><li><code>bgsave</code>:调用<code>glibc</code>的函数<code>fork</code>产生一个子进程用于写入RDB文件，快照持久化完全交给子进程来处理，父进程继续处理客户端请求，生成RDB文件的默认配置。</li></ul><p>首先如果执行<code>save</code>指令的话，由于<code>redis</code>是单线程模型，所以<strong>既不能处理读指令也不能执行写指令</strong>。</p><p>为了确保<strong>数据一致性</strong>，在执行写入RDB文件的时候，会暂停写操作，这样会导致redis性能下降，所以Redis使用操作系统的**多进程写时复制技术（copy on write）**来实现快照持久化。</p><p>由于<code>bgsave</code>是创建子进程进行写入RDB文件，所以采用<code>CWO</code>技术,不影响主进程进行读取数据，并且共享主进程的数据，于是很方便的将redis主进程数据写入磁盘当中。当主进程进行写操作的时候，操作系统会将写入的数据的页单独拷贝到子进程当中。不必将所有内存数据拷贝到子进程当中，不然如果Redis主进程有1G内存数据，然后子进程把这1G数据拷贝到自己当中，会发现内存开销急剧上升。</p><p>RDB缺点：</p><ul><li>如果频繁将RDB写入到磁盘当中，磁盘压力很大，上一秒的RDB文件还没有写完，又要重新写一个RDB文件。</li><li>执行<code>fork</code>系统调用会阻塞主线程，虽然COW不需要拷贝物理内存，但是需要拷贝页表（页表记录了虚拟地址到物理地址的映射关系），页表的大小与内存容量成正比，如果redis内存数据过多，所以创建页表的时间也就越久，所以频繁执行<code>bgsave</code>主线程的阻塞时间会很多。</li></ul><div class=mermaid align=center style=background-color:none;border-radius:5px>graph LR
+write((写请求))
+main[主线程]
+child[bg子进程]
+disk[(磁盘)]
+subgraph memory[内存]
+get1[get指令]
+get2[get指令]
+set[set name:foreverool]
+copy[副本set name:forverool]
+get1 -->get2
+set -->copy
+end
+main -.fork.-> child
+child -.读取.->copy
+child -.写入.-> disk
+main -.执行读写指令.-> memory
+write -->set
+%% 样式美化
+classDef yellow fill:#fff9e6,stroke:#e6b800,stroke-width:2px;
+classDef blue fill:#e6f7ff,stroke:#006699,stroke-width:2px;
+classDef red fill:#ffe6e6,stroke:#990000,stroke-width:2px;
+classDef green fill:#78ee63,stroke:#78b463,stroke-width:2px;
+class main yellow
+class child red
+class disk blue
+class get1,get2 green
+linkStyle default stroke:#5f9ea0,stroke-width:2px;</div><h2 id=aof写后日志>AOF写后日志</h2><p>AOF(Append-Only File)Logs: 仅追加文件日志</p><p>AOF日志会记录所有修改数据集的写操作。这些日志以纯文本的格式存储。</p><p>写后日志：会先执行写指令操作，然后将数据写入内存，再记录日志。</p><p>AOF日志的特点：</p><ul><li>仅追加模式：AOF日志仅追加文件，这意味着新的写操作会追加到文件末尾。</li><li>重放：为了恢复数据集，redis会从头到尾重放AOF日志，执行日志中的每个写操作以重建数据集。</li><li>持久性：AOF日志可以配置不同的持久性级别，你可以在每次写后执行<code>fsync</code>操作。写操作可以进行<code>fsync</code>最安全但是速度较慢，或者按指定间隔进行<code>fsync</code>。</li><li>重写：随着时间的推移，AOF日志的体积主键增大。Redis提供了通过压缩日志并删除不必要的操作来重写AOF日志的机制，同时还能保持数据的完整性。你可以在Redis配置文件中设置AOF日志相关参数，指定所需的持久化级别和重写策略。</li></ul><p>RDB快照在存储空间方面效率较高，适用于完整备份和灾难恢复场景，它能加快redis的重启速度，但是快照之间可能会丢失数据。</p><p>AOF日志提供了细粒度的持久化控制，适用于需要确保每次写操作都被记录的系统。然而AOF日志可能消耗更多的存储空间，并且Redis重新启动速度可能会慢。</p><div class=mermaid align=center style=background-color:none;border-radius:5px>graph LR
+set((set name))
+redis([redis])
+memory([内存])
+disk[(磁盘)]
+set -.写指令.-> redis
+redis -.执行命令将数据写入内存.-> memory
+memory -.记录日志.-> disk
+classDef yellow fill:#fff9e6,stroke:#e6b800,stroke-width:2px;
+classDef blue fill:#e6f7ff,stroke:#006699,stroke-width:2px;
+classDef red fill:#ffe6e6,stroke:#990000,stroke-width:2px;
+class set red
+class redis yellow
+class memory blue</div><h3 id=aof日志格式>AOF日志格式</h3><p>当执行完指令将数据写入到内存当中，然后redis会将如下格式写入到AOF文件中：</p><ul><li><code>*3</code>:表示当前指令分为三部分，每个部分都是<code>$+数字</code>开头，紧跟后面是该部分具体的<code>指令、键、值</code>。</li><li><code>数字</code>:表示这部分的命令、键、值占用的字节大小。</li></ul><p><img src=/images/posts/redis/image-20260222045343832.png alt=image-20260222045343832></p><h4 id=如何在docker中查看aof日志>如何在docker中查看aof日志</h4><p><strong>version: redis 2.8.x</strong></p><ul><li><p>运行<code>redis</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>docker run -d --name redis-server -p 6379:6379 redis:latest
+</span></span></code></pre></div></li><li><p>启动<code>AOF</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>docker exec -it sh
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$cd /etc/redis
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$vim redis.conf <span style=color:#75715e>#修改appendonly为yes</span>
+</span></span></code></pre></div></li><li><p>写入数据到redis当中</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>docker exec -it redis-server redis-cli
+</span></span><span style=display:flex><span>127.0.0.1:6379&gt;set name foreverool
+</span></span><span style=display:flex><span>127.0.0.1:6379&gt;set age <span style=color:#ae81ff>1</span>
+</span></span></code></pre></div></li><li><p>查看AOF文件</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>docker exec -it redis-server sh
+</span></span><span style=display:flex><span>cat /data/appendonly.aof
+</span></span></code></pre></div></li></ul><p><strong>version redis 7.4</strong></p><ul><li><p>在宿主机创建<code>redis.conf</code>文件</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>vim redis.conf
+</span></span><span style=display:flex><span><span style=color:#75715e># 开启 AOF</span>
+</span></span><span style=display:flex><span>appendonly yes
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 开启混合持久化 (Redis 7.4 默认是开启的，但显式写出来更稳)</span>
+</span></span><span style=display:flex><span>aof-use-rdb-preamble yes
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 必须设置 dir，否则 AOF 文件夹可能无法创建</span>
+</span></span><span style=display:flex><span>dir /data
+</span></span></code></pre></div></li><li><p>创建容器并映射宿主机redis.conf文件到docker 容器中，并且挂在该文件。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>docker run -d <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>  --name redis-server7 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>  -p 6379:6379 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>  -v /home/redis/conf/redis.conf:/etc/redis/redis.conf <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>  redis:7.4 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>  redis-server /etc/redis/redis.conf
+</span></span></code></pre></div></li><li><p>查看/data目录就可以看到<code>appendonlydir</code>目录</p></li></ul><p>为什么redis采用写后日志的形式呢？</p><p>主要因为写后日志不需要检查命令的正确，直接记录即可，并且不会阻塞当前写指令执行。</p><h4 id=写回策略>写回策略</h4><p>当执行写操作的时候，会先将数据写到内存当中，然后执行<code>write</code>函数，将数据存储的AOF缓冲区当中，然后根据写回策略，将缓冲区的数据写到aof文件当中。</p><p>为了提高文件的写入效率，当用户调用<code>write</code>函数时，将一些数据写入文件的时候，操作系统通常会将写入的数据暂存在内存缓冲区里面，等到缓冲区的空间被填满，或者超过了指定的时限后，才真正的将缓冲区的数据写入到磁盘当中。</p><p>上述方法虽然提高了效率，但是也会带来一些问题，比如计算机突然停机了，那么缓冲区的数据都会丢失。</p><p>为了解决这个问题，操作系统提供了<code>fsync</code>和<code>fdatasync</code>两个同步函数，他们可以强制让操作系统立即将缓冲区的数据写入到硬盘里面。</p><p>redis支持三种写入策略：</p><ul><li><code>appendonly always</code>: 在每次写入aof日志的时候都执行<code>fsync</code>，即写指令执行完成之后立马将缓冲区的内容写入磁盘当中。很慢，但是安全。</li><li><code>appendonly everysec</code>:每秒写回，写指令执行完，日志只会将写到AOF文件缓冲区当中，然后每秒把缓冲区的内容同步到磁盘文件当中。</li><li><code>appendonly no</code>:由操作系统控制，写执行完毕，把日志写到AOF文件内存缓冲区当中，由操作系统决定什么时候同步到磁盘文件当中。速度很快。</li></ul><p>由于<code>write</code>和<code>fsync</code>都是系统调用，所以进程从用户态切换到内核态，非常耗时。</p><p>如果想要获得高性能选择<code>no</code>策略；如果想要保证高可靠性，选择<code>always</code>策略；如果允许数据有一点丢失并且希望性能没有太大影响可以选择<code>everysec</code>策略。</p><h4 id=aof重写机制>AOF重写机制</h4><p>AOF文件会随着时间增大，会导致重放时时间会增多，并且磁盘占用也多。</p><p>为了解决AOF文件太大问题，redis设计了AOF重放机制，用于对AOF日志进行瘦身。</p><p>其原理主要是：<strong>创建一个子进程对内存进行遍历，然后将内存数据转换成一系列Redis操作指令，序列化到新的AOF日志文件中。序列化完成之后，再将操作期间发生的新的AOF日志追加到新的AOF日志文件当中，追加完毕后立即替换旧的AOF文件。</strong></p><p>重写之后，会将原有的多条指令重写为一条指令。也会将一些不存在的数据不用再创建-删除操作。</p><p>再执行重写的时候，redis会创建一个新的AOF重写缓冲区，也就是在执行AOF重写的时候，这个期间执行的新的写指令会同时记录到AOF缓冲区和AOF重写缓冲区。</p><div class=mermaid align=center style=background-color:none;border-radius:5px>graph TD
+%% 第一部分：普通 AOF 流程
+subgraph Normal_AOF [常规 AOF 流程]
+Main1[主线程] -- "「写」指令" --> Data1[(Redis 数据)]
+Data1 -- 记录 aof 日志 --> Buf1[AOF 缓冲区]
+Buf1 -- AOF 日志落盘 --> Disk1[(磁盘)]
+end
+%% 第二部分：AOF 重写流程
+subgraph Rewrite_Process [AOF 重写流程]
+direction TB
+Main2[主线程] -- fork --> Child[子进程]
+subgraph Memory [内存空间]
+Data2[(Redis 数据)]
+Buf2[AOF 缓冲区]
+RWBuf[AOF 重写缓冲区]
+Copy[(Redis 数据拷贝 逻辑上拷贝，实际上采用COW与主进程共享内存数据)]
+end
+Main2 -- "「写」指令" --> Data2
+Data2 --> Buf2
+Data2 --> RWBuf
+Child -- 遍历内存数据生成重写记录 --> Copy
+Copy -- AOF 重写日志落盘 --> Disk2[(磁盘)]
+end
+Normal_AOF ==>|AOF 重写| Rewrite_Process
+%% 样式定义
+classDef main fill:#fff9e6,stroke:#e6b800,stroke-width:2px;
+classDef child fill:#ffe6e6,stroke:#990000,stroke-width:2px;
+classDef mem fill:#f9f9f9,stroke:#333,stroke-dasharray: 5 5;
+class Main1,Main2 main;
+class Child child;
+class Memory mem;</div><h4 id=redis能否作为mysql的替代>redis能否作为MySQL的替代</h4><p>由于<code>always</code>写回策略，只要有“写”指令就将操作写到磁盘当中，这样数据“时刻”保存在磁盘当中。但是redis源码中并没有处理写磁盘失败返回错误信息给客户端，只是返回给客户端执行指令成功（此时只有内存中有数据）。</p><h2 id=混合持久化>混合持久化</h2><p>在Redis中混合使用RDB和AOF是目前官方最推荐的持久化方式。这种方式结合了RDB加载的速度和AOF数据丢失少的优点。</p><p>自 Redis 7.0.0 版本起，Redis 使用多部分 AOF 机制。也就是说，原始的单个 AOF 文件会被拆分为基础文件（最多一个）和增量文件（可能不止一个）。基础文件代表 AOF<a href=https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/#log-rewriting target=_blank rel=noopener> 重写</a>时数据的初始快照（RDB 或 AOF 格式）。增量文件包含自上次创建基础 AOF 文件以来的增量更改。所有这些文件都放在一个单独的目录中，并由清单文件进行跟踪。</p><h2 id=参考网站与书籍>参考网站与书籍</h2><p>官网：https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/</p><p>书籍：</p><ul><li><p>《Redis高手心法》</p></li><li><p>《高效使用Redis》</p></li><li><p><em>Rediscovering Redis Mastering</em></p></li></ul></div><div class="row ps-3 pe-3"><div class="col-md-6 share-buttons"></div></div><hr><div class="row next-prev-navigator"><div class="col-md-6 previous-article"><a href=/posts/cs-network/ title=Network class="btn filled-button"><div><i class="fas fa-chevron-circle-left"></i> 上一篇</div><div class=next-prev-text>Network</div></a></div><div class="col-md-6 next-article"><a href=/posts/software-use-tips/typora/handle-zenuml-exception/ title=解决在Typora使用zenuml异常 class="btn filled-button"><div>下一篇 <i class="fas fa-chevron-circle-right"></i></div><div class=next-prev-text>解决在Typora使用zenuml异常</div></a></div></div><hr><script src=https://giscus.app/client.js data-repo=foreverool/foreverool.github.io data-repo-id=R_kgDOQ37o_Q data-category=Announcements data-category-id=DIC_kwDOQ37o_c4C02rS data-mapping=pathname data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang data-strict=1 data-loading=lazy crossorigin=anonymous async></script></div></div></div><a id=scroll-to-top class=btn type=button data-bs-toggle=tooltip data-bs-placement=left title="Scroll to top"><i class="fas fa-chevron-circle-up"></i></a></section><section class=toc-section id=toc-section><div class=toc-holder><h5 class="text-center ps-3">目录</h5><hr><div class=toc><nav id=TableOfContents><ul><li><a href=#rdb内存快照>RDB内存快照</a><ul><li><ul><li><a href=#写时复制技术>写时复制技术</a></li></ul></li><li><a href=#生成rdb策略>生成RDB策略</a></li></ul></li><li><a href=#aof写后日志>AOF写后日志</a><ul><li><a href=#aof日志格式>AOF日志格式</a><ul><li><a href=#如何在docker中查看aof日志>如何在docker中查看aof日志</a></li><li><a href=#写回策略>写回策略</a></li><li><a href=#aof重写机制>AOF重写机制</a></li><li><a href=#redis能否作为mysql的替代>redis能否作为MySQL的替代</a></li></ul></li></ul></li><li><a href=#混合持久化>混合持久化</a></li><li><a href=#参考网站与书籍>参考网站与书籍</a></li></ul></nav></div></div></section></div><footer id=footer class="container-fluid text-center align-content-center footer pb-2"><div class="container pt-5"><div class="row text-start"><div class="col-md-4 col-sm-12"><h5>联系方式:</h5><ul><li><a href=mailto:chromosomedtime@163.com target=_blank rel=noopener><span><i class="fas fa-envelope"></i></span> <span>chromosomedtime@163.com</span></a></li><li><a href=https://github.com/foreverool target=_blank rel=noopener><span><i class="fab fa-github"></i></span> <span>foreverool</span></a></li></ul></div></div></div><hr><div class=container><div class="row text-start"><div class=col-md-4><a id=theme href=https://github.com/hugo-toha/toha target=_blank rel=noopener><img src=/images/theme-logo_hu_f8b53e7eb0850e5c.png alt="Toha Theme Logo">
+Toha</a></div><div class="col-md-4 text-center">© 2026 Copyright.</div><div class="col-md-4 text-end"><a id=hugo href=https://gohugo.io/ target=_blank rel=noopener>Powered by
+<img src=/images/hugo-logo.svg alt="Hugo Logo" height=18></a></div></div></div><div id=coffeeButton class="coffee-button animate-float"><img src=/images/coffe.jpg alt=请我喝咖啡></div><div id=tipModal class=tip-modal><div class=tip-content><div class=tip-header><h3 class=tip-title>请我喝杯咖啡吧！</h3><span id=closeButton class="close-button text-2xl">&#215;</span></div><div class=payment-methods><div class=payment-item><img src=/images/alipay.jpg alt=支付宝>
+<span class=payment-name>支付宝</span></div><div class=payment-item><img src=/images/wechat.png alt=微信支付>
+<span class=payment-name>微信支付</span></div></div><p class=tip-thank>感谢您的支持与鼓励！</p></div></div><script>const coffeeButton=document.getElementById("coffeeButton"),tipModal=document.getElementById("tipModal"),closeButton=document.getElementById("closeButton");coffeeButton.addEventListener("click",()=>{tipModal.classList.add("active"),document.body.style.overflow="hidden"});function closeModal(){tipModal.classList.remove("active"),document.body.style.overflow=""}closeButton.addEventListener("click",closeModal),tipModal.addEventListener("click",e=>{e.target===tipModal&&closeModal()}),document.addEventListener("keydown",e=>{e.key==="Escape"&&tipModal.classList.contains("active")&&closeModal()});const paymentItems=document.querySelectorAll(".payment-item");paymentItems.forEach(e=>{e.addEventListener("click",()=>{e.classList.add("scale-95"),setTimeout(()=>{e.classList.remove("scale-95")},150);const t=e.querySelector(".payment-name").textContent;alert(`请使用${t}扫描二维码进行支付，感谢您的支持！`)})})</script><script src=/application.be52120b0fa3f9a2166189d02599105fd202a0d731f75cdc967abca63e8b0d7d.js integrity="sha256-vlISCw+j+aIWYYnQJZkQX9ICoNcx91zclnq8pj6LDX0=" defer></script></body></html>
