@@ -21,9 +21,9 @@ hasCJKLanguage: true
 # Manage languages
 # For any more details, you can check the official documentation: https://gohugo.io/content-management/multilingual/
 languages:
-  en:
-    languageName: English
-    weight: 2
+  # en:
+  #   languageName: English
+  #   weight: 2
   
   zh-cn:
     languageName: "中文"
