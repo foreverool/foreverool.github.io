@@ -1,0 +1,18 @@
+# some information about you
+name: "foreverool"
+nickname: "foreverool"
+# greeting message before your name. it will default to "Hi! I am" if not provided
+greeting: "Hi, I am"
+image: "images/avatar2.png"
+# give your some contact information. they will be used in the footer
+contactInfo:
+  email: "chromosomedtime@163.com"
+  github: foreverool
+
+# some summary about what you do
+summary:
+  - 我是go后台开发小菜鸟
+  - 喜欢游戏开发
+  - 也喜欢研究web安全
+  - 
+  - 
