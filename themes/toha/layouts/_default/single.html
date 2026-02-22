@@ -68,33 +68,6 @@
           {{partial "misc/tags.html" .Params.tags }}
         {{ end }}
 
-         <div id="summary-container">正在加载摘要...</div>
-
-    <script>
-        async function loadSummaries() {
-            try {
-                const res = await fetch('/assets/summaries.json');
-                if (!res.ok) throw new Error('加载失败');
-                const summaries = await res.json();
-                displaySummaries(summaries);
-            } catch (err) {
-                document.getElementById('summary-container').innerHTML = '摘要加载失败。';
-                console.error(err);
-            }
-        }
-
-        function displaySummaries(summaries) {
-            const container = document.getElementById('summary-container');
-            container.innerHTML = ''; // 清空加载提示
-            for (const [slug, text] of Object.entries(summaries)) {
-                const item = document.createElement('p');
-                item.innerHTML = `<strong>${slug}:</strong> ${text}`;
-                container.appendChild(item);
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', loadSummaries);
-    </script>
 
         <div class="post-content" id="post-content">
           {{ .Page.Content }}
