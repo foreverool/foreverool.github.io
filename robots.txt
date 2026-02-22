@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /lib/
+Disallow: /js/
+
+Sitemap: https://foreverool.github.io/sitemap.xml
