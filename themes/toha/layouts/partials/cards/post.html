@@ -8,10 +8,11 @@
     <div class="card-body">
       <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">
         <h5 class="card-title"><b>{{ .Title }}</b></h5>
-        {{ $summaries := .Site.Data.summaries }}
-{{ $relPath := strings.TrimPrefix "content/" .File.Path }}
-{{ $summary := index $summaries $relPath | default "暂无摘要" }}
-<p class="post-summary">{{ $summary }}</p>
+{{ $summaries := .Site.Data.summaries }}
+{{ $relPath := .File.Path }}
+{{ $relPathUnix := replace $relPath "\\" "/" }}  <!-- 将反斜杠替换为正斜杠 -->
+{{ $summary := index $summaries $relPathUnix | default "暂无摘要" }}
+<p class="card-text post-summary">{{ $summary }}</p>
         <!-- <p class="card-text post-summary">{{ .Summary | plainify }}</p> -->
       </a>
       {{ if and site.Params.features.tags.enable site.Params.features.tags.on_card }}
