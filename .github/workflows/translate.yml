@@ -1,39 +1,21 @@
-name: GPT Translate Articles
+name: GPT Translate Docs
 
 on:
-  push:
-    # 只有当 content 目录下的 .zh.md 文件发生变动时才触发
-    paths:
-      - 'content/**/*.zh.md'
+  issue_comment:
+    types: [created]
 
 jobs:
-  gpt-translate:
+  translate:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # 必须赋予写入权限，否则无法推送翻译后的文件
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
 
-      - name: Run GPT Translate
+      - name: Translate Docs to Chinese
+        if: contains(github.event.comment.body, '/translate-docs')
         uses: 3ru/gpt-translate@master
         with:
-          # 必须在 Repository Secrets 中配置此变量
           apikey: ${{ secrets.OPENAI_API_KEY }}
-          # 翻译的目标语言后缀
-          # 可选：指定模型，默认通常是 gpt-3.5-turbo，建议改为 gpt-4-turbo 效果更好
-          model: 'gpt-4-turbo'
-          # 可选：翻译提示词优化
-          prompt: "Translate the following Markdown content from Chinese to English. Keep the Front Matter (YAML) key names unchanged, only translate the values of 'title' and 'description'. Do not translate code blocks."
-
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          # 如果没有文件变动，则跳过
-          git commit -m "docs: auto-translate to English" || exit 0
-          git push
+          model: "gpt-4o"
+          inputFiles: "content/**/*.md"
+          outputFiles: "content/en/**/*.md"
+          languages: "English"
