@@ -2,7 +2,7 @@ import os, json, requests
 from pathlib import Path
 
 API_KEY = os.environ['API_KEY']
-posts_dir = Path('_posts')
+posts_dir = Path('content/posts')
 summaries = {}
 
 for post in posts_dir.glob('*.md'):
