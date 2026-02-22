@@ -3,7 +3,7 @@ name: Generate AI Summary
 on:
   push:
     paths:
-      - '_posts/*.md'   # 当博客文章更新时触发
+      - 'content/posts/*.md'   # 当博客文章更新时触发
   workflow_dispatch:    # 允许手动触发
 
 jobs:
