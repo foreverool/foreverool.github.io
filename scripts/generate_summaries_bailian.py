@@ -10,12 +10,12 @@ if not API_KEY:
 
 # 阿里云百炼的API端点（使用兼容OpenAI的接入点，注意地域要选新加坡才能用免费额度）
 # 免费额度仅限新加坡地域，所以使用国际站Endpoint [citation:1][citation:3][citation:9]
-BASE_URL = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions"
+#BASE_URL = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions"
 # 如果你希望使用国内北京地域（无免费额度），可以将BASE_URL替换为：
-# BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
 
 # 选择模型，这里使用通义千问系列中的性价比款，也可以用你之前习惯的deepseek-v3 [citation:9]
-MODEL_NAME = "qwen-plus" # 也可以试试 "qwen-turbo" 或 "deepseek-v3"
+MODEL_NAME = "qwen-omni-turbo" # 也可以试试 "qwen-turbo" 或 "deepseek-v3"
 
 POSTS_DIR = pathlib.Path("content/posts")
 DATA_DIR = pathlib.Path("data")
