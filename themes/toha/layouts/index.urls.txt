@@ -1,2 +1,5 @@
-{{ range .Pages }}{{ .Permalink }}
-{{ end }}
+{{- range .Site.AllPages -}}
+  {{- if eq .Kind "page" -}}
+    {{ .Permalink }}
+  {{ end -}}
+{{- end -}}

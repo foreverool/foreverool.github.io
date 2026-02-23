@@ -40,6 +40,17 @@ markup:
     startLevel: 2
     endLevel: 6
     ordered: false
+mediaTypes:
+  text/plain:
+    suffixes:
+      - txt
+
+outputFormats:
+  BaiduUrls:
+    mediaType: "text/plain"
+    baseName: "urls"
+    isPlainText: true
+    notAlternative: true
 
 # At least HTML and JSON are required for the main HTML content and
 # client-side JavaScript search
@@ -48,6 +59,7 @@ outputs:
     - HTML
     - RSS
     - JSON
+    - BaiduUrls
 
 # Enable global emoji support
 enableEmoji: true
