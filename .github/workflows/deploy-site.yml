@@ -42,4 +42,8 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
         publish_dir: ./public
+    
+    - name: Push to Baidu
+      run: |
+       curl -H 'Content-Type:text/plain' --data-binary @urls.txt "http://data.zz.baidu.com/urls?site=www.foreverool.site&token=${{ secrets.BAIDU_TOKEN }}"
   
