@@ -45,5 +45,5 @@ jobs:
     
     - name: Push to Baidu
       run: |
-       curl -H 'Content-Type:text/plain' --data-binary @urls.txt "http://data.zz.baidu.com/urls?site=www.foreverool.site&token=${{ secrets.BAIDU_TOKEN }}"
+       curl -H 'Content-Type:text/plain' --data-binary @public/urls.txt "http://data.zz.baidu.com/urls?site=www.foreverool.site&token=${{ secrets.BAIDU_TOKEN }}"
   
