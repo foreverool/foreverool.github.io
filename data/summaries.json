@@ -30,6 +30,6 @@
   "posts/redis/persistance/redis-persistance-base.md": "Redis通过定时执行RDB内存快照，在宕机后可直接从RDB文件恢复数据。",
   "posts/golang/concurrency/chanel-base.md": "通道是一种特殊的变量类型，用于在 goroutine 之间传递消息或共享状态。",
   "posts/golang/concurrency/_index.md": "文章内容过短，无法生成摘要。",
-  "posts/golang/concurrency/GMP-base.md": "GMP模型解释了Go语言中的 goroutine、worker thread 和 processor 的关系及其在系统调用和 runtime 调度中的作用。",
+  "posts/golang/concurrency/GMP-base.md": "GMP模型解释了Go语言中的 goroutine、worker thread 和 processor 的关系及其在系统调用和 runtime 调度中的作用",
   "posts/golang/concurrency/goroutine-base.md": "Goroutine是Go语言中的一种轻量级线程，由Go运行时管理，具有快速创建、销毁和上下文切换的特点，适用于高并发场景。"
 }
