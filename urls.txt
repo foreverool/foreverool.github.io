@@ -33,6 +33,7 @@ https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project
   https://foreverool.github.io/search/
   https://foreverool.github.io/search/
   https://foreverool.github.io/search/
+  https://foreverool.github.io/posts/mysql/index/index-base/
   https://foreverool.github.io/posts/golang/concurrency/goroutine-base/
   https://foreverool.github.io/posts/golang/concurrency/gmp-base/
   https://foreverool.github.io/posts/redis/persistance/redis-persistance-base/
