@@ -33,6 +33,8 @@ https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project
   https://foreverool.github.io/search/
   https://foreverool.github.io/search/
   https://foreverool.github.io/search/
+  https://foreverool.github.io/posts/golang/concurrency/goroutine-base/
+  https://foreverool.github.io/posts/golang/concurrency/gmp-base/
   https://foreverool.github.io/posts/redis/persistance/redis-persistance-base/
   https://foreverool.github.io/posts/algorithms/binary-tree/dfs/post-order/
   https://foreverool.github.io/posts/algorithms/binary-tree/dfs/in-order/
@@ -49,6 +51,6 @@ https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project
   https://foreverool.github.io/posts/deploy-hugo-blog/deploy-to-github/
   https://foreverool.github.io/posts/deploy-hugo-blog/install-theme/
   https://foreverool.github.io/posts/deploy-hugo-blog/install/
-  https://foreverool.github.io/posts/golang/chanel-base/
+  https://foreverool.github.io/posts/golang/concurrency/chanel-base/
   https://foreverool.github.io/search/
   
