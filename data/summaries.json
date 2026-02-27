@@ -25,7 +25,7 @@
   "posts/software-use-tips/typora/_index.md": "文章内容过短，无法生成摘要。",
   "posts/software-use-tips/typora/handle-zenuml-exception.md": "解决在Typora中使用ZenUML插件时遇到的排版问题，通过更新`mermaid-zenuml.min.js`到最新版本并重新打包`lib.asar`来修复。",
   "posts/mysql/index/_index.md": "文章内容过短，无法生成摘要。",
-  "posts/mysql/index/index-base.md": "索引用于快速查找特定记录，通常存储于树状结构如B-tree中，通过定义关键词如PRIMARY KEY、UNIQUE等来创建索引。",
+  "posts/mysql/index/index-base.md": "索引用于快速查找特定记录，通常存储于树状结构如B-tree中，通过定义关键词如PRIMARY KEY、UNIQUE等来创建索引",
   "posts/cs-network/io-model/_index.md": "文章内容过短，无法生成摘要。",
   "posts/cs-network/io-model/io-model-concept.md": "Unix系统中的I/O模型包括阻塞、非阻塞、I/O复用、信号驱动和异步模式；数据传输涉及两阶段：首先由网卡将数据存至内核Ring Buffer，随后内核协议栈进行解析并放入socket接收缓冲区。",
   "posts/redis/persistance/_index.md": "文章内容过短，无法生成摘要。",
