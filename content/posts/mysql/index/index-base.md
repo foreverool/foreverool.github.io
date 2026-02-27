@@ -456,7 +456,7 @@ EXPLAIN ANALYZE SELECT *  FROM user WHERE username="user_iTnrfj" or created_at="
 
 - 增加过滤条件，缩小结果集（最推荐）；
 
-**结论：所以失效的本质是优化器无法利用索引的有序性进行快速定位数据**
+**结论：索引失效的本质是优化器无法利用索引的有序性进行快速定位数据**
 
 
 
