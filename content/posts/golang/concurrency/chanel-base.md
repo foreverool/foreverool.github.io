@@ -14,8 +14,8 @@ tags:
 menu:
   sidebar:
     name: 
-    identifier: 
-    parent: golang
+    identifier: channel
+    parent: go-concurrency
     weight: 10
 ---
 
