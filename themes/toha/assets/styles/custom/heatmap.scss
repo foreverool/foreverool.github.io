@@ -31,6 +31,23 @@
   border: 1px solid var(--heatmap-border);
   transition: background-color 0.3s ease;
   overflow: hidden; // 保持圆角裁剪
+
+  overflow-x: auto;   // 关键：允许横向滚动
+  overflow-y: hidden;
+
+  // 自定义薄荷绿滚动条 (Phycat Style)
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 207, 186, 0.05);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 207, 186, 0.3);
+    border-radius: 10px;
+    &:hover { background: rgba(0, 207, 186, 0.5); }
+  }
 }
 
 // 核心：ECharts 渲染区域
