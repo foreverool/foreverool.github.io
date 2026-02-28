@@ -201,7 +201,7 @@ params:
 
      # Number of posts to show to each page. Default is "12"
     pagination:
-      maxPostsPerPage: 12
+      maxPostsPerPage: 10
 
      # Enable "Support" Link
  # 打赏按钮配置
