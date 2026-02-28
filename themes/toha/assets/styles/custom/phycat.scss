@@ -54,6 +54,46 @@ body {
         border-left: 5px solid $mint-primary;
     }
 
+    counter-reset: h1; /* 如果你想从 H1 开始计数 */
+
+  /* 2. 针对 H1 到 H6 的统一处理 */
+  h1, h2, h3, h4, h5, h6 {
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-left: 0; // 保持标题对齐
+
+    &::before {
+      position: absolute;
+      left: 0;
+      top: -1.2rem; // 向上偏移，显示在左上角
+      font-family: 'JetBrains Mono', monospace; // 建议使用等宽字体，更有技术感
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: rgba($mint-primary, 0.5); // 使用薄荷绿半透明
+      letter-spacing: 0.1em;
+      transition: all 0.3s ease;
+    }
+
+    &:hover::before {
+      color: $mint-primary;
+      transform: translateY(-2px);
+    }
+  }
+
+  /* 3. 自动根据标签名设置显示内容 */
+  h1::before { content: "H1"; }
+  h2::before { content: "H2"; }
+  h3::before { content: "H3"; }
+  h4::before { content: "H4"; }
+  h5::before { content: "H5"; }
+  h6::before { content: "H6"; }
+
+
+
+
+
     // 链接样式
     a {
         color: $mint-primary;
@@ -67,6 +107,75 @@ body {
             border-bottom-color: $mint-primary;
         }
     }
+
+    ul {
+    list-style: none !important;
+    padding-left: 1.5rem;
+
+    li {
+      position: relative;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+
+      // 自定义 Phycat 风格的列表符号
+      &::before {
+        content: "";
+        position: absolute;
+        left: -1.2rem;
+        top: 0.6rem;
+        width: 6px;
+        height: 6px;
+        background-color: $mint-primary; // 你的薄荷绿变量
+        border-radius: 2px; // 稍微带一点圆角
+        box-shadow: 0 0 8px rgba($mint-primary, 0.5); // 发光效果
+        transition: transform 0.2s ease;
+      }
+
+      &:hover::before {
+        transform: scale(1.3); // 悬停时符号微放大
+      }
+    }
+  }
+
+  // 有序列表数字样式
+  ol {
+    counter-reset: custom-counter;
+    list-style: none;
+    padding-left: 1.5rem;
+
+    li {
+      counter-increment: custom-counter;
+      &::before {
+        content: counter(custom-counter);
+        color: $mint-primary;
+        font-weight: bold;
+        margin-right: 0.8rem;
+        font-family: 'JetBrains Mono', monospace; // 极客感字体
+      }
+    }
+  }
+  //修改加粗文字样式
+strong, b {
+    color: $mint-primary; // 字体颜色改为薄荷绿
+    font-weight: 700;
+    position: relative;
+    padding: 0 2px;
+    
+    // 荧光笔底纹效果
+    background: linear-gradient(to bottom, transparent 60%, rgba($mint-primary, 0.2) 0);
+
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: rgba($mint-primary, 0.6); // 让波浪线颜色稍微浅一点，更
+    
+    // 如果想要更华丽的渐变色文字（可选）
+ 
+    background: linear-gradient(120deg, $mint-primary 0%, #2ecc71 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+  }
+
 
  // 1. 修正 Toha 原有的 figure 限制
   figure {
@@ -179,17 +288,34 @@ body {
 
 
 
-// 6. 侧边栏目录 (TOC) 激活状态
+// 6. 侧边栏目录 (TOC) 交互样式
 #TableOfContents {
     a {
+        // 基础过渡效果，确保颜色和背景变换是丝滑的
+        transition: all 0.2s ease-in-out;
+        border-left: 3px solid transparent; // 预留边框位，防止抖动
+        padding: 5px 15px; 
+        display: block;
+        color: inherit; 
+        text-decoration: none;
+
+        // 鼠标悬停样式 (参考 Phycat Mint)
+        &:hover {
+            color: $mint-primary !important;        // 文字变为薄荷绿
+            background-color: rgba($mint-primary, 0.08); // 极其清淡的背景色
+            border-left: 3px solid rgba($mint-primary, 0.3); // 半透明的左边框线
+            padding-left: 18px; // 微小的位移感，增加灵动性
+        }
+
+        // 激活（滚动到当前章节）状态
         &.active {
             color: $mint-primary !important;
-            background-color: $mint-bg-soft;
-            border-left: 3px solid $mint-primary;
+            background-color: $mint-bg-soft; // 比 hover 略深一点的背景
+            border-left: 3px solid $mint-primary !important;
+            font-weight: 500; // 激活时加粗
         }
     }
 }
-
 
 
 
@@ -283,6 +409,103 @@ body {
   }
 }
 
+
+.post-content ul li {
+  position: relative;
+  list-style: none; // 隐藏默认圆点
+  padding-left: 1.2rem; // 为左侧自定义图标留出固定空间
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;           // 图标固定在最左端
+    top: 0.6em;        // 垂直居中对齐文字第一行
+    width: 6px;
+    height: 6px;
+    background-color: $mint-primary;
+    border-radius: 2px;
+  }
+}
+
+.read-area {
+  // 1. 基础背景色：Phycat 风格使用纯白，配合全局的淡色底色
+  background-color: #ffffff !important; 
+// 2. 核心：CSS 绘制轻微网格
+  // 原理：叠加横向和纵向的两层线性渐变
+  background-image: 
+    linear-gradient(rgba(0, 207, 186, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 207, 186, 0.05) 1px, transparent 1px);
+  
+  // 3. 网格大小：25px * 25px (Phycat 常用的疏密程度)
+  background-size: 25px 25px;
+  // 2. 核心：卡片化处理
+  margin-top: 1rem;             // 与顶部导航留出间距
+  margin-bottom: 2rem;
+  border-radius: 16px !important; // 较大的圆角，显得柔和
+  
+  // 3. 柔和的薄荷色阴影 (Phycat 的精髓)
+  // 使用低饱和度的薄荷绿 (#00cfba) 做扩散阴影，看起来有呼吸感
+  box-shadow: 0 10px 30px rgba(0, 207, 186, 0.08) !important;
+  
+  // 4. 极细的边框，增加精致感
+  border: 1px solid rgba(0, 207, 186, 0.1) !important;
+
+  // 确保内部内容不会溢出圆角
+  overflow: hidden; 
+  
+  @include transition(); // 保持 Toha 原有的平滑过渡
+
+  // 鼠标悬停时稍微浮起 (交互反馈)
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(0, 207, 186, 0.12) !important;
+  }
+}
+
+
+.tags {
+  
+  a {
+    
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      //color: $mint-primary !important;
+      //background-color: $mint-light; // 浅色底色
+      border: 1px solid rgba($mint-primary, 0.2);
+      border-radius: 20px; // 胶囊形状
+      text-decoration: none !important;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+
+      // 模拟 Phycat 的微弱前缀符号（如 #）
+      &::before {
+        margin-right: 4px;
+        opacity: 0.6;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      // 鼠标悬停效果
+      &:hover {
+        background-color: $mint-primary;
+        color: #ffffff !important;
+        transform: translateY(-2px); // 向上微浮
+        box-shadow: 0 4px 12px rgba($mint-primary, 0.3); // 薄荷色发光阴影
+        border-color: $mint-primary;
+      }
+
+      // 点击时的反馈
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba($mint-primary, 0.2);
+      }
+    
+    }
+    
+  }
+
 // 暗色模式适配
 html[data-theme='dark'] .sidebar-section .sidebar-holder {
   background-color: #1a1b1e !important;
@@ -299,4 +522,20 @@ html[data-theme='dark'] .sidebar-section .sidebar-holder {
     background-color: #2c2e33 !important;
     color: #eee;
   }
+
+  .post-content strong {
+    color: lighten($mint-primary, 10%); // 暗色模式下文字稍微亮一点
+    background: linear-gradient(to bottom, transparent 60%, rgba($mint-primary, 0.15) 0);
+  }
+
+  .tags a {
+    background-color: rgba($mint-primary, 0.05);
+    border-color: rgba($mint-primary, 0.3);
+    
+    &:hover {
+      background-color: $mint-primary;
+      box-shadow: 0 4px 15px rgba($mint-primary, 0.4);
+    }
+  }
 }
+

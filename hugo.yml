@@ -207,7 +207,7 @@ params:
  # 打赏按钮配置
   tipButton:
     enable: true                  # 是否启用打赏功能
-    iconPath: "/images/coffe.jpg"  # 咖啡图标路径
+    iconPath: "/images/coffe.gif"  # 咖啡图标路径
     iconAlt: "请我喝咖啡"          # 图标替代文本
     title: "请我喝杯咖啡吧！"      # 模态窗口标题
     thankText: "感谢您的支持与鼓励！"  # 感谢文本
