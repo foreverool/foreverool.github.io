@@ -1,176 +1,130 @@
+// ======================================================
+// Phycat Mint Heatmap Scss (Optimized for ECharts)
+// ======================================================
+
 :root {
-  /* Color Palette */
-  --bg-primary: #ffffff;
-  --bg-secondary: #000000;
-  --bg-tertiary: #3a3a3a;
-  --text-primary: #ee6e29;
-  --text-secondary: #a0a0a0;
-  --border-color: #404040;
-  --bg-third: #2A3332;
+  /* Phycat Mint Palette */
+  --mint-primary: #00cfba;
+  --mint-hover: #00b3a1;
+  --mint-bg-soft: rgba(0, 207, 186, 0.08);
   
-
+  /* Neutral Palette */
+  --heatmap-bg-light: #ffffff;
+  --heatmap-bg-dark: #2a3332; // 你的 --bg-third
+  --heatmap-text-main: #2c3e50;
+  --heatmap-text-muted: #a0a0a0;
+  --heatmap-border: rgba(0, 0, 0, 0.05);
   
-  /* Spacing */
-  --spacing-xs: 2px;
-  --spacing-sm: 4px;
-  --spacing-md: 8px;
-  --spacing-lg: 16px;
-  --spacing-xl: 24px;
-  
-  /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --font-size-xs: 10px;
-  --font-size-sm: 12px;
-  --font-size-md: 14px;
-  --font-size-lg: 16px;
-  
-  /* Borders and Shadows */
-  --border-radius-sm: 2px;
-  --border-radius-md: 4px;
-  --border-radius-lg: 6px;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.4);
-  
-  /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
-  --transition-slow: 0.35s ease;
+  /* Elevation & Shape */
+  --heatmap-radius: 12px;
+  --heatmap-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-
-/* ================================================
-   Heatmap Wrapper
-   ================================================ */
+// 容器：热力图外层卡片
 .heatmap-wrapper {
-  background-color: var(--bg-primary);
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-lg);
-  font-family: var(--font-family);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-lg);
-  max-width: 800px;
-  margin: 0 auto;
-  overflow-x: auto; 
+  background-color: var(--heatmap-bg-light);
+  border-radius: var(--heatmap-radius);
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 900px;
+  box-shadow: var(--heatmap-shadow);
+  border: 1px solid var(--heatmap-border);
+  transition: background-color 0.3s ease;
+  overflow: hidden; // 保持圆角裁剪
 }
 
-
-
+// 核心：ECharts 渲染区域
 .heatmap {
-  width: 48em;  /* Fixed width for mobile to prevent squashing */
-  min-width: 48em;  /* Ensure minimum width on mobile */
-  height: 210px;
+  width: 100%;
+  height: 240px; // 略微增加高度以容纳标题和提示
+  min-width: 700px; // 保证日历网格不被过度挤压
   box-sizing: border-box;
-
+  
+  // 适配移动端横向滚动
+  @media screen and (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
 }
 
-
-
-@media screen and (min-width: 48em) {
-  .heatmap {
-      min-width: 0; 
-      width: 100%; 
-      max-width: 100%; 
-      border: 1px solid #000;
-    }
+// 为外层提供横向滚动支持（移动端必备）
+.heatmap-scroll-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  // 隐藏滚动条美化
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--mint-bg-soft);
+    border-radius: 10px;
+  }
 }
-
-
-
-
-
 
 /* ================================================
-   Month Labels
-   ================================================ */
-.heatmap-month-labels {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: auto repeat(12, 1fr);
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-sm);
-  padding-left: calc(20px + var(--spacing-xs)); /* Align with day labels */
-}
-
-.heatmap-month-label {
-  text-align: center;
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: var(--spacing-xs) 0;
-}
-
-
-
-/* ================================================
-   Year Buttons
+   年份切换按钮样式
    ================================================ */
 .heatmap-year-buttons {
   display: flex;
-  justify-content: center;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-  padding: var(--spacing-sm) 0;
-  border-bottom: 1px solid var(--border-color);
+  justify-content: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--heatmap-border);
+
+  button {
+    background-color: transparent;
+    color: var(--heatmap-text-muted);
+    border: 1px solid var(--heatmap-border);
+    border-radius: 6px;
+    padding: 0.4rem 1.2rem;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--mint-primary);
+      border-color: var(--mint-primary);
+      background-color: var(--mint-bg-soft);
+    }
+
+    &.active {
+      background-color: var(--mint-primary);
+      color: #ffffff;
+      border-color: var(--mint-primary);
+      box-shadow: 0 4px 12px rgba(0, 207, 186, 0.2);
+    }
+  }
 }
-
-
-.heatmap-year-buttons button {
-  background-color: var(--bg-secondary);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-md);
-  padding: var(--spacing-sm) var(--spacing-lg);
-  font-size: var(--font-size-md);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  outline: none;
-}
-
-
-.heatmap-year-buttons button:hover {
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
-  border-color: var(--accent-secondary);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-}
-
-.heatmap-year-buttons button.active {
-  background-color: var(--accent-primary);
-  color: var(--bg-primary);
-  border-color: var(--accent-primary);
-  font-weight: 600;
-  box-shadow: var(--shadow-md);
-}
-
-
 
 /* ================================================
-   Day Labels (Weekdays)
+   暗色模式适配 (Toha Standard)
    ================================================ */
-.heatmap-day-labels {
-  display: contents;
+html[data-theme="dark"] {
+  .heatmap-wrapper {
+    background-color: var(--heatmap-bg-dark);
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .heatmap-year-buttons {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+    
+    button {
+      color: #888;
+      border-color: rgba(255, 255, 255, 0.1);
+      
+      &:hover {
+        color: var(--mint-primary);
+        background-color: rgba(0, 207, 186, 0.1);
+      }
+    }
+  }
+
+  // ECharts 的文字颜色通常需要在 JS 中动态修改，
+  // 但我们可以通过 CSS Filter 辅助增强对比度（可选）
+  .heatmap canvas {
+    filter: grayscale(0.1);
+  }
 }
-
-.heatmap-day-label {
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-  text-align: right;
-  padding-right: var(--spacing-sm);
-  line-height: 1;
-  height: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-html[data-theme="dark"] .heatmap-wrapper {
- background-color: var(--bg-third);
-}
-
-
-

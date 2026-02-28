@@ -115,8 +115,11 @@
 }
 
 .copy-code-button {
+  display: block !important;
+  position: relative;
+  z-index: 1;
   float: right;
-  margin-top: 0.5em;
+  margin-top: 1.5em;
   margin-left: -2.6em;
   margin-right: 3em;
 

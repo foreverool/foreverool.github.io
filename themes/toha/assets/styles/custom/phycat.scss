@@ -1,0 +1,267 @@
+// 1. 定义 Phycat 核心变量
+$mint-primary: #00cfba;
+$mint-hover: #00b3a1;
+$mint-bg-soft: rgba(0, 207, 186, 0.08);
+$dark-bg: #1e1e1e;
+$text-main: #2c3e50;
+$border-radius-lg: 12px;
+$card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+// 2. 全局基础样式
+body {
+    background-color: #fdfdfd;
+    color: $text-main;
+    font-family: "Inter", "PingFang SC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+// 3. 文章内容区 (Post Content)
+.post-content {
+    line-height: 1.85;
+    font-size: 1.05rem;
+    p {
+        text-indent: 2em;      // 首行缩进 2 个字符单位
+        margin-bottom: 1.5rem; // 保持段落间的呼吸感
+        text-align: justify;   // 两端对齐，让缩进后的边缘更整齐
+    }
+
+    // --- 重要：排除不需要缩进的特殊元素 ---
+    
+    // 引用块内部通常不缩进，或者保持独立样式
+    blockquote p {
+        text-indent: 0;
+    }
+
+    // 列表项（无序/有序列表）不缩进
+    li p {
+        text-indent: 0;
+    }
+
+    // 图片说明或包含图片的段落如果不需要缩进
+    p:has(img) {
+        text-indent: 0;
+    }
+    // 标题样式
+    h1, h2, h3, h4 {
+        color: #1a1a1a;
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    h2 {
+        padding-left: 15px;
+        border-left: 5px solid $mint-primary;
+    }
+
+    // 链接样式
+    a {
+        color: $mint-primary;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba($mint-primary, 0.2);
+        
+        &:hover {
+            color: $mint-hover;
+            background-color: $mint-bg-soft;
+            border-bottom-color: $mint-primary;
+        }
+    }
+
+    // 引用块
+    blockquote {
+        margin: 2rem 0;
+        padding: 1rem 1.5rem;
+        background-color: $mint-bg-soft;
+        border-left: 4px solid $mint-primary !important;
+        border-radius: 0 $border-radius-lg $border-radius-lg 0;
+        color: #555;
+        font-style: italic;
+    }
+
+    // 行内代码
+    code:not(pre code) {
+        background-color: $mint-bg-soft;
+        color: $mint-primary;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9em;
+    }
+
+    // 4. 代码块深度定制 (Code Blocks)
+    pre {
+        background-color: $dark-bg !important;
+        border-radius: $border-radius-lg;
+        padding: 2.5rem 1.5rem 1.5rem 1.5rem !important; // 顶部留出位置给 Mac 按钮
+        margin: 2rem 0;
+        position: relative !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+
+
+    
+
+        // 模拟 Mac 窗口控制按钮
+        &::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ff5f56; // 红
+            box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f; // 黄、绿
+            z-index: 10;
+        }
+
+        code {
+            color: #d4d4d4;
+            font-family: "JetBrains Mono", "Fira Code", monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            background: none !important;
+        }
+
+        // 滚动条美化
+        &::-webkit-scrollbar {
+            height: 8px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 10px;
+            &:hover {
+                background: $mint-primary;
+            }
+        }
+
+        
+        
+    }
+
+}
+
+
+
+// 6. 侧边栏目录 (TOC) 激活状态
+#TableOfContents {
+    a {
+        &.active {
+            color: $mint-primary !important;
+            background-color: $mint-bg-soft;
+            border-left: 3px solid $mint-primary;
+        }
+    }
+}
+
+
+
+
+// ======================================================
+// 基于 Toha 源码重塑的 Phycat 文件夹样式
+// ======================================================
+
+.sidebar-section {
+  .sidebar-holder {
+    box-shadow: none !important; // 去掉厚重的阴影
+    border-right: 1px solid rgba(0, 0, 0, 0.05); // 改用细线分割
+    background-color: #fdfdfd !important;
+
+    .sidebar {
+      background-color: transparent !important;
+
+      .sidebar-tree .tree {
+        // 1. 基础文字与间距调整
+        li {
+          line-height: 2.2em !important; 
+          font-size: 0.92rem;
+          color: #555 !important;
+          transition: all 0.2s ease;
+
+          // 默认图标 (文件夹/文件)
+          i {
+            color: #888 !important;
+            font-size: 14px !important;
+            transition: color 0.2s;
+          }
+
+          // 悬停效果
+          &:hover {
+            color: $mint-primary !important;
+            & > i { color: $mint-primary !important; }
+          }
+          
+          // 当前激活页面的样式
+          &.active-page { 
+            color: $mint-primary !important;
+            font-weight: 600;
+            & > i { color: $mint-primary !important; }
+          }
+        }
+
+        // 2. 文件夹层级连接线重写 (Phycat 风格)
+        .subtree {
+          padding-left: 1.2rem !important; // 稍微加大缩进
+
+          // 垂直主线
+          &:before {
+            left: 0.8rem !important; // 调整位置
+            border-left: 1px solid rgba(0, 207, 186, 0.2) !important; // 改为浅薄荷绿线
+            top: 0 !important;
+          }
+
+          li {
+            // 水平短横线
+            &:before {
+              width: 12px !important;
+              left: -0.4rem !important;
+              top: 1.1em !important;
+              border-top: 1px solid rgba(0, 207, 186, 0.2) !important;
+            }
+
+            // 修正最后一段折线，避免溢出
+            &:last-child:before {
+              background: #fdfdfd !important; // 需与背景色一致以盖掉垂直线
+              height: 1.5rem !important;
+              top: 1.1em !important;
+            }
+          }
+        }
+      }
+
+      // 3. 搜索框 Phycat 化
+      #search-box {
+        border-radius: 20px !important; // 圆角
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        background-color: #f1f3f5 !important;
+        height: 32px !important;
+        font-size: 13px;
+
+        &:focus {
+          border-color: $mint-primary !important;
+          background-color: #fff !important;
+          box-shadow: 0 0 0 3px rgba(0, 207, 186, 0.1) !important;
+        }
+      }
+    }
+  }
+}
+
+// 暗色模式适配
+html[data-theme='dark'] .sidebar-section .sidebar-holder {
+  background-color: #1a1b1e !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+
+  .sidebar .sidebar-tree .tree {
+    .subtree:before { border-left-color: rgba(0, 207, 186, 0.3) !important; }
+    li:before { border-top-color: rgba(0, 207, 186, 0.3) !important; }
+    li:last-child:before { background: #1a1b1e !important; }
+    li { color: #aaa !important; }
+  }
+  
+  #search-box {
+    background-color: #2c2e33 !important;
+    color: #eee;
+  }
+}

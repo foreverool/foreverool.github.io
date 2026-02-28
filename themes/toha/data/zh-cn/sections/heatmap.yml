@@ -1,0 +1,9 @@
+# section information
+section:
+  name: HeatMap
+  id: heat-map
+  enable: true
+  weight: 1
+  showOnNavbar: false
+  hideTitle: false
+  template: sections/heatmap.html
