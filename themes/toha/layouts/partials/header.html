@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <meta name="baidu-site-verification" content="codeva-kvJqpsbsJR" />
+
 <!-- 引入 Cal-Heatmap 样式文件（必须先引入 CSS，再引入 JS） -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cal-heatmap@4.2.3/dist/cal-heatmap.min.css" crossorigin="anonymous">
 
@@ -14,6 +15,9 @@
 <!-- 引入 Cal-Heatmap 核心 JS 文件（关键：确保在热力图初始化代码之前加载） -->
 <script src="https://cdn.jsdelivr.net/npm/cal-heatmap@4.2.3/dist/cal-heatmap.min.js"  crossorigin="anonymous"></script>
 {{ partial "helpers/style-bundle.html" . }}
+
+<!-- 引入icon -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
 <!--================= fab-icon =========================-->
 {{/* add favicon only if the site author has provided the the favicon */}}

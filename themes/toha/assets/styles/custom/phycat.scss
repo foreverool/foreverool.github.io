@@ -68,6 +68,41 @@ body {
         }
     }
 
+ // 1. 修正 Toha 原有的 figure 限制
+  figure {
+    width: 100% !important;        // 允许 figure 占满行宽
+    max-width: 600px !important;   // 统一最大宽度
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin: 2rem auto !important;  // 强制水平居中
+    border: none !important;       // 如果不需要边框可以去掉
+  }
+
+  // 2. 统一图片大小
+  img {
+    display: block !important;
+    margin: 0 auto !important;     // 图片在父容器中居中
+    
+    // 设置统一尺寸
+    width: 600px !important;       // 这里设置你想要的宽度
+    height: 400px !important;      // 这里设置你想要的高度
+    max-width: 100% !important;    // 移动端自适应，防止溢出
+    
+    // 核心：保持比例裁剪，防止图片拉伸
+    object-fit: cover !important; 
+    
+    // 针对 Toha 默认样式的清理
+    border: none !important;
+  }
+
+  // 3. 修正文字说明
+  figcaption {
+    width: 100% !important;
+    margin-top: 10px !important;
+    font-size: 0.9em !important;
+  }
+
     // 引用块
     blockquote {
         margin: 2rem 0;

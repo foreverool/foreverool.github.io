@@ -3,7 +3,7 @@ section:
   name: About
   id: about
   enable: true
-  weight: 4
+  weight: 5
   showOnNavbar: true
   template: sections/about.html
 
