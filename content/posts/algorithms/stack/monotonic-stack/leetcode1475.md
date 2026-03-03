@@ -6,7 +6,10 @@ draft: false
 description: ""
 theme: Toha
 tags:
-
+- 单调栈
+- leetcode
+- 算法
+- 商品折扣
 menu:
   sidebar:
     name: 商品折扣后的价格
