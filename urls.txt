@@ -33,6 +33,11 @@ https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project
   https://foreverool.github.io/search/
   https://foreverool.github.io/search/
   https://foreverool.github.io/search/
+  https://foreverool.github.io/posts/algorithms/stack/monotonic-stack/leetcode1475/
+  https://foreverool.github.io/posts/algorithms/stack/monotonic-stack/leetcode739/
+  https://foreverool.github.io/posts/algorithms/stack/monotonic-stack/leetcode503/
+  https://foreverool.github.io/posts/algorithms/stack/monotonic-stack/leetcode496/
+  https://foreverool.github.io/posts/algorithms/stack/monotonic-stack/monotonic-stack-base/
   https://foreverool.github.io/posts/mysql/index/explain-tools/
   https://foreverool.github.io/posts/mysql/index/index-base/
   https://foreverool.github.io/posts/golang/concurrency/goroutine-base/
