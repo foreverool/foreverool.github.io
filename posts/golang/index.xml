@@ -1,4 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on foreverool's blog</title><link>https://foreverool.github.io/posts/golang/</link><description>Recent content in Golang on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 27 Feb 2026 21:20:43 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/posts/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>Goroutine Base</title><link>https://foreverool.github.io/posts/golang/concurrency/goroutine-base/</link><pubDate>Fri, 27 Feb 2026 21:20:43 +0800</pubDate><guid>https://foreverool.github.io/posts/golang/concurrency/goroutine-base/</guid><description>&lt;h1 id="goroutine"&gt;Goroutine&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on foreverool's blog</title><link>https://foreverool.github.io/posts/golang/</link><description>Recent content in Golang on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 08 Mar 2026 13:28:51 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/posts/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>内存对齐</title><link>https://foreverool.github.io/posts/golang/memory/aligment/</link><pubDate>Sun, 08 Mar 2026 13:28:51 +0800</pubDate><guid>https://foreverool.github.io/posts/golang/memory/aligment/</guid><description>&lt;h1 id="内存对齐"&gt;内存对齐&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;CPU从内存中获取数据，不是一个字节一个字节的读取，而是根据机器字读取的。比如32位的机器每次获取内存数据，一次性读取4个字节，64位机器则是8个字节&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Allocator</title><link>https://foreverool.github.io/posts/golang/memory/allocator/</link><pubDate>Sun, 08 Mar 2026 13:28:38 +0800</pubDate><guid>https://foreverool.github.io/posts/golang/memory/allocator/</guid><description>&lt;h1 id="go-内存管理"&gt;Go 内存管理&lt;/h1&gt;
+&lt;h2 id="计算机获取数据"&gt;计算机获取数据&lt;/h2&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph TD
+%% 定义金字塔各层级节点（从上到下：速度快→慢，容量小→大，成本高→低）
+A[&amp;#34;CPU寄存器 (Registers)&amp;#34;]:::top --&amp;gt; B[&amp;#34;高速缓存 (Cache)
+L1/L2/L3 Cache
+速度：纳秒级
+容量：MB级
+成本：最高&amp;#34;]:::second
+B --&amp;gt; C[&amp;#34;内存 (Memory/RAM)
+速度：微秒级
+容量：GB级
+成本：中高&amp;#34;]:::third
+C --&amp;gt; D[&amp;#34;磁盘 (Disk)
+机械硬盘HDD/固态硬盘SSD
+速度：毫秒级
+成本：中低
+容量：TB级&amp;#34;]:::fourth
+D --&amp;gt; E[&amp;#34;外部存储 (External Storage)
+网盘/U盘/磁带
+速度：秒级
+容量：PB级
+成本：最低&amp;#34;]:::bottom
+%% 样式定义（模拟金字塔渐变效果）
+classDef top fill:#ff7f7f,stroke:#333,stroke-width:2px,shape:polygon,points:50,0 100,50 0,50
+classDef second fill:#ffb380,stroke:#333,stroke-width:2px,shape:polygon,points:30,0 120,60 0,60
+classDef third fill:#ffff80,stroke:#333,stroke-width:2px,shape:polygon,points:10,0 140,70 0,70
+classDef fourth fill:#80ff80,stroke:#333,stroke-width:2px,shape:polygon,points:0,0 150,80 0,80
+classDef bottom fill:#80b3ff,stroke:#333,stroke-width:2px,shape:polygon,points:0,0 160,90 0,90
+%% 增加层级说明文本
+note1[&amp;#34;核心规律：越往上速度越快、容量越小、成本越高&amp;#34;]
+note1 --&amp;gt; |&amp;#34;存储层级核心逻辑&amp;#34;| A
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id="内存分级管理"&gt;内存分级管理&lt;/h2&gt;
+&lt;p&gt;Go语言中，采用内存分级策略，将内存大小进行分级，针对每级大小维护独立的空闲列表。可以快速定位合适大小的空闲空间，并且也分散了加锁解锁的压力。&lt;/p&gt;</description></item><item><title>Goroutine Base</title><link>https://foreverool.github.io/posts/golang/concurrency/goroutine-base/</link><pubDate>Fri, 27 Feb 2026 21:20:43 +0800</pubDate><guid>https://foreverool.github.io/posts/golang/concurrency/goroutine-base/</guid><description>&lt;h1 id="goroutine"&gt;Goroutine&lt;/h1&gt;
 &lt;h2 id="goroutine是什么"&gt;Goroutine是什么&lt;/h2&gt;
 &lt;p&gt;goroutine是一种轻量级线程，也称之为协程。其创建与销毁不需要经过内核而是直接在go运行时进行管理。相比线程来说其更轻量，不仅仅在创建销毁过程中速度快，而且还在上下文切换以及内存分配都优于线程。&lt;/p&gt;</description></item><item><title>GMP基本概念</title><link>https://foreverool.github.io/posts/golang/concurrency/gmp-base/</link><pubDate>Fri, 27 Feb 2026 21:16:55 +0800</pubDate><guid>https://foreverool.github.io/posts/golang/concurrency/gmp-base/</guid><description>&lt;h1 id="gmp模型"&gt;GMP模型&lt;/h1&gt;
 &lt;ul&gt;
