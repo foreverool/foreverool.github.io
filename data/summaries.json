@@ -42,5 +42,8 @@
   "posts/golang/concurrency/chanel-base.md": "通道是一种特殊的变量类型，用于在 goroutine 之间传递值或引用。通道通过管道的概念来实现，在 Go 中使用 channel 来模拟 Unix 系统中的管道功能，允许 goroutines 之间的异步通信。",
   "posts/golang/concurrency/_index.md": "文章内容过短，无法生成摘要。",
   "posts/golang/concurrency/GMP-base.md": "GMP模型解释了Go语言中的 goroutine、worker thread 和 processor 的关系及其在系统调用和 runtime 调度中的作用。",
-  "posts/golang/concurrency/goroutine-base.md": "Goroutine是Go语言中的一种轻量级线程，由Go运行时管理，具有快速创建、销毁和上下文切换的特点，适用于高并发场景。"
+  "posts/golang/concurrency/goroutine-base.md": "Goroutine是Go语言中的一种轻量级线程，由Go运行时管理，具有快速创建、销毁和上下文切换的特点，适用于高并发场景。",
+  "posts/golang/memory/_index.md": "文章内容过短，无法生成摘要。",
+  "posts/golang/memory/allocator.md": "计算机内存层次结构由CPU寄存器、高速缓存、内存和磁盘组成，按速度递减、容量递增、成本递减顺序排列。",
+  "posts/golang/memory/aligment.md": "CPU通过内存对齐提高数据读取效率，避免因未对齐而增加访问时间。"
 }
