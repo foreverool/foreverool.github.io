@@ -47,10 +47,30 @@
           <img class="rounded-circle" src='{{ partial "helpers/get-author-image.html" . }}' alt="Author Image">
           <h5 class="author-name">{{ partial "helpers/get-author-name.html" . }}</h5>
          
-          <p class="text-muted">{{ i18n "published_on" }} {{ partial "custom/date-format.html" (dict "date" .Date "format" "medium") }}| {{ .Page.WordCount }}字{{ if site.Params.features.readingTime }} | {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
-          本篇文章总访问
-          <span id="busuanzi_value_page_uv"></span>人
+          <p class="text-muted">{{ i18n "published_on" }} {{ partial "custom/date-format.html" (dict "date" .Date "format" "medium") }}| {{ .Page.WordCount }}字{{ if site.Params.features.readingTime }} | {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }} | 
+            <i class="fas fa-eye" style="margin: 0 4px;"></i>
+
+            阅读人数：<span id="stats-uv">加载中...</span>
+        
         </div>
+
+        <script>
+    var r = new XMLHttpRequest();
+    r.addEventListener('load', function() {
+        try {
+            // count_unique 即为去重后的访客人数 (UV)
+            // count 则为总访问次数 (PV)
+            document.getElementById('stats-uv').innerText = JSON.parse(this.responseText).count_unique;
+        } catch(e) {
+            document.getElementById('stats-uv').innerText = "-";
+        }
+    });
+    // 构造请求 URL，location.pathname 获取当前文章路径
+    var path = encodeURIComponent(location.pathname.replace(/\/$/, ''));
+    r.open('GET', 'https://foreverool.goatcounter.com/counter/' + path + '.json');
+    r.send();
+</script>
+        
         {{ else }}
         <div style="margin-bottom: 80px;"></div>
         {{ end }}
