@@ -7,7 +7,7 @@ description: ""
 theme: Toha
 tags:
 - 死锁
-- MySQL
+- MySQLDB
 menu:
   sidebar:
     name: MySQL死锁
