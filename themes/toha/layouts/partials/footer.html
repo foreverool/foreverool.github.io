@@ -217,8 +217,33 @@
     </div>
     {{ end }}
     {{- partial "custom/tip-button.html" . -}}
-    <span id="busuanzi_container_site_pv">    
-	本站总访问量<span id="busuanzi_value_site_uv"></span>次
+<div class="site-stats">
+    <span>本站总访问人数 ：<span id="site-uv">--</span></span> | 
+    <span>本站总访问次数 ：<span id="site-pv">--</span></span>
+</div>
+
+
+  <script>
+    (function() {
+        var request = new XMLHttpRequest();
+        // 注意这里路径改成了 TOTAL.json
+        var url = 'https://foreverool.goatcounter.com/counter/TOTAL.json';
+        
+        request.open('GET', url, true);
+        request.onload = function() {
+            if (this.status === 200) {
+                var data = JSON.parse(this.responseText);
+                // 这里拿到的就是全站累计去重人数 (UV) 和 总点击数 (PV)
+                document.getElementById('site-uv').innerText = data.count_unique || 0;
+                document.getElementById('site-pv').innerText = data.count || 0;
+            } else if (this.status === 404) {
+                console.warn('全站统计接口未找到，请检查后台权限');
+            }
+        };
+        request.send();
+    })();
+</script>
+
 </span>
 
 

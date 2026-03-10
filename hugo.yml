@@ -203,13 +203,7 @@ params:
     pagination:
       maxPostsPerPage: 10
 
-    analytics:
-      enable: true
-      services:
-      # GoatCounter
-        goatCounter:
-        code: <foreverool>  # Not self-hosted
-        instance: <https://foreverool.goatcounter.com/count>  # For self-hosted you should use only one of the two methods
+
 
 
      # Enable "Support" Link
