@@ -507,10 +507,11 @@ strong, b {
   }
 
 // 暗色模式适配
-html[data-theme='dark'] .sidebar-section .sidebar-holder {
+html[data-theme='dark']  {
+ 
+.sidebar-section .sidebar-holder{
   background-color: #1a1b1e !important;
   border-right: 1px solid rgba(255, 255, 255, 0.05);
-
   .sidebar .sidebar-tree .tree {
     .subtree:before { border-left-color: rgba(0, 207, 186, 0.3) !important; }
     li:before { border-top-color: rgba(0, 207, 186, 0.3) !important; }
@@ -522,6 +523,8 @@ html[data-theme='dark'] .sidebar-section .sidebar-holder {
     background-color: #2c2e33 !important;
     color: #eee;
   }
+}
+  
 
   .post-content strong {
     color: lighten($mint-primary, 10%); // 暗色模式下文字稍微亮一点
@@ -535,6 +538,27 @@ html[data-theme='dark'] .sidebar-section .sidebar-holder {
     &:hover {
       background-color: $mint-primary;
       box-shadow: 0 4px 15px rgba($mint-primary, 0.4);
+    }
+  }
+
+  // 暗黑模式阅读区域样式（统一变量，补全 !important）
+  .read-area {
+    background-color: #1a1d23 !important; 
+    background-image: 
+      linear-gradient(rgba($mint-primary, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba($mint-primary, 0.04) 1px, transparent 1px) !important;
+    background-size: 25px 25px !important;
+    margin-top: 1rem !important;             
+    margin-bottom: 2rem !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba($mint-primary, 0.05) !important;
+    border: 1px solid rgba($mint-primary, 0.08) !important;
+    overflow: hidden !important; 
+    transition: all 0.3s ease !important;
+
+    &:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 15px 35px rgba($mint-primary, 0.09) !important;
     }
   }
 }
