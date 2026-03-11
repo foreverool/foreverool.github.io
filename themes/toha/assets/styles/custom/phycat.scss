@@ -161,12 +161,7 @@ strong, b {
     position: relative;
     padding: 0 2px;
     
-    // 荧光笔底纹效果
-    background: linear-gradient(to bottom, transparent 60%, rgba($mint-primary, 0.2) 0);
 
-    text-decoration: underline;
-    text-decoration-style: wavy;
-    text-decoration-color: rgba($mint-primary, 0.6); // 让波浪线颜色稍微浅一点，更
     
     // 如果想要更华丽的渐变色文字（可选）
  
@@ -507,59 +502,129 @@ strong, b {
   }
 
 // 暗色模式适配
+// 暗色模式适配
 html[data-theme='dark']  {
- 
-.sidebar-section .sidebar-holder{
-  background-color: #1a1b1e !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
-  .sidebar .sidebar-tree .tree {
-    .subtree:before { border-left-color: rgba(0, 207, 186, 0.3) !important; }
-    li:before { border-top-color: rgba(0, 207, 186, 0.3) !important; }
-    li:last-child:before { background: #1a1b1e !important; }
-    li { color: #aaa !important; }
-  }
-  
-  #search-box {
-    background-color: #2c2e33 !important;
-    color: #eee;
-  }
-}
-  
+  // 全局基础文字颜色（优先保证可读性）
+  --text-dark-primary: #e5e7eb;    // 主要文字：浅灰，适配暗黑背景
+  --text-dark-secondary: #9ca3af;  // 次要文字：中灰
+  --bg-dark-main: #1a1b1e;         // 主背景
+  --bg-dark-card: #1a1d23;         // 卡片背景
 
-  .post-content strong {
-    color: lighten($mint-primary, 10%); // 暗色模式下文字稍微亮一点
-    background: linear-gradient(to bottom, transparent 60%, rgba($mint-primary, 0.15) 0);
+  // 全局文字颜色重置
+  body {
+    color: var(--text-dark-primary) !important;
+    background-color: var(--bg-dark-main) !important;
   }
 
-  .tags a {
-    background-color: rgba($mint-primary, 0.05);
-    border-color: rgba($mint-primary, 0.3);
+  // 侧边栏样式修复
+  .sidebar-section .sidebar-holder{
+    background-color: var(--bg-dark-main) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
     
-    &:hover {
-      background-color: $mint-primary;
-      box-shadow: 0 4px 15px rgba($mint-primary, 0.4);
+    .sidebar .sidebar-tree .tree {
+      .subtree:before { border-left-color: rgba(0, 207, 186, 0.3) !important; }
+      li:before { border-top-color: rgba(0, 207, 186, 0.3) !important; }
+      li:last-child:before { background: var(--bg-dark-main) !important; }
+      // 修复侧边栏文字颜色（提高对比度）
+      li { 
+        color: var(--text-dark-primary) !important; 
+        &:hover, &.active-page {
+          color: $mint-primary !important; // 薄荷绿突出，保证可见
+        }
+      }
+    }
+    
+    // 搜索框文字颜色修复
+    #search-box {
+      background-color: #2c2e33 !important;
+      color: var(--text-dark-primary) !important; // 输入框文字
+      &::placeholder {
+        color: var(--text-dark-secondary) !important; // 占位符文字
+      }
     }
   }
 
-  // 暗黑模式阅读区域样式（统一变量，补全 !important）
+  // 修复加粗文字在暗黑模式下的显示（取消渐变，改用纯色+背景高亮）
+  .post-content strong, .post-content b {
+    color: #ffffff !important; // 纯白色文字，保证最高对比度
+    font-weight: 700;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0, 207, 186, 0.25) 0) !important;
+    -webkit-background-clip: unset !important; // 取消文字渐变（避免透明）
+    -webkit-text-fill-color: unset !important;
+    padding: 0 4px !important; // 增加内边距，提高可读性
+  }
+
+  // 标签样式修复
+  .tags a {
+    color: var(--text-dark-primary) !important; // 标签文字颜色
+    background-color: rgba(0, 207, 186, 0.05);
+    border-color: rgba(0, 207, 186, 0.3);
+    
+    &:hover {
+      background-color: $mint-primary;
+      color: #ffffff !important; // 悬停时文字纯白
+      box-shadow: 0 4px 15px rgba(0, 207, 186, 0.4);
+    }
+  }
+
+  // 阅读区域样式修复（统一变量，补全 !important）
   .read-area {
-    background-color: #1a1d23 !important; 
+    background-color: var(--bg-dark-card) !important; 
     background-image: 
-      linear-gradient(rgba($mint-primary, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba($mint-primary, 0.04) 1px, transparent 1px) !important;
+      linear-gradient(rgba(0, 207, 186, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 207, 186, 0.04) 1px, transparent 1px) !important;
     background-size: 25px 25px !important;
     margin-top: 1rem !important;             
     margin-bottom: 2rem !important;
     border-radius: 16px !important;
-    box-shadow: 0 10px 30px rgba($mint-primary, 0.05) !important;
-    border: 1px solid rgba($mint-primary, 0.08) !important;
+    box-shadow: 0 10px 30px rgba(0, 207, 186, 0.05) !important;
+    border: 1px solid rgba(0, 207, 186, 0.08) !important;
     overflow: hidden !important; 
     transition: all 0.3s ease !important;
 
     &:hover {
       transform: translateY(-2px) !important;
-      box-shadow: 0 15px 35px rgba($mint-primary, 0.09) !important;
+      box-shadow: 0 15px 35px rgba(0, 207, 186, 0.09) !important;
+    }
+  }
+
+  // 补充：文章内容区文字颜色修复（关键！）
+  .post-content {
+    color: var(--text-dark-primary) !important;
+    
+    // 标题文字
+    h1, h2, h3, h4, h5, h6 {
+      color: #ffffff !important; // 标题纯白，突出层级
+    }
+    
+    // 段落文字
+    p {
+      color: var(--text-dark-primary) !important;
+    }
+    
+    // 链接文字
+    a {
+      color: $mint-primary !important;
+      &:hover {
+        color: $mint-hover !important;
+      }
+    }
+    
+    // 引用块文字
+    blockquote {
+      color: var(--text-dark-secondary) !important;
+      background-color: rgba(0, 207, 186, 0.05) !important;
+    }
+    
+    // 列表文字
+    ul li, ol li {
+      color: var(--text-dark-primary) !important;
+    }
+    
+    // 行内代码文字
+    code:not(pre code) {
+      color: #ffffff !important;
+      background-color: rgba(0, 207, 186, 0.1) !important;
     }
   }
 }
-
