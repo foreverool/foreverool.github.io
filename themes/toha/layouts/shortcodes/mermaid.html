@@ -8,6 +8,6 @@
     {{ $background = "none"}}
 {{ end }}
 
-<div class="mermaid" align="{{ $alignment }}" style="background-color: {{ $background }}; border-radius: 5px;">
+<div class="mermaid" align="{{ $alignment }}" >
     {{- safeHTML .Inner -}}
 </div>

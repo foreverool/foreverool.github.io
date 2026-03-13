@@ -92,6 +92,13 @@ body {
 
 
 
+/* 4. 移动端适配：确保小屏幕下也能正常显示 */
+@media (max-width: 768px) {
+  .mermaid {
+    min-width: 100%;
+    overflow-x: auto;
+  }
+}
 
 
     // 链接样式
