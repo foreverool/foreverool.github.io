@@ -1,5 +1,5 @@
 ---
-title: 'Cache Avalanche'
+title: 'Redis 缓存雪崩、击穿、穿透'
 date: '2026-03-13T16:54:29+08:00'
 hero: 
 draft: false
