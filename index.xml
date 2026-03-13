@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>foreverool's blog</title><link>https://foreverool.github.io/</link><description>Recent content on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 13 Mar 2026 16:54:43 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Redis 缓存雪崩、击穿、穿透</title><link>https://foreverool.github.io/posts/redis/cache-problems/cache-avalanche/</link><pubDate>Fri, 13 Mar 2026 16:54:29 +0800</pubDate><guid>https://foreverool.github.io/posts/redis/cache-problems/cache-avalanche/</guid><description>&lt;h1 id="redis-缓存雪崩击穿穿透"&gt;Redis 缓存雪崩、击穿、穿透&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>foreverool's blog</title><link>https://foreverool.github.io/</link><description>Recent content on foreverool's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 13 Mar 2026 17:32:46 +0800</lastBuildDate><atom:link href="https://foreverool.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>布隆过滤器</title><link>https://foreverool.github.io/posts/web/filter/bloom-filter/</link><pubDate>Fri, 13 Mar 2026 17:32:46 +0800</pubDate><guid>https://foreverool.github.io/posts/web/filter/bloom-filter/</guid><description>&lt;h1 id="布隆过滤器"&gt;布隆过滤器&lt;/h1&gt;
+&lt;p&gt;布隆过滤器是一个节省空间的概率型数据结构，其本质是&lt;strong&gt;一个很长的二进制向量和一些列哈希函数&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;我们如果判断一个元素是否存在，要么使用哈希，要么使用集合。但是这两个数据结构都会存储着元素对象本身，并且占用空间是根据元素本身的字节大小。&lt;/p&gt;</description></item><item><title>Redis 缓存雪崩、击穿、穿透</title><link>https://foreverool.github.io/posts/redis/cache-problems/cache-avalanche/</link><pubDate>Fri, 13 Mar 2026 16:54:29 +0800</pubDate><guid>https://foreverool.github.io/posts/redis/cache-problems/cache-avalanche/</guid><description>&lt;h1 id="redis-缓存雪崩击穿穿透"&gt;Redis 缓存雪崩、击穿、穿透&lt;/h1&gt;
 &lt;h2 id="雪崩"&gt;雪崩&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;什么是redis缓存雪崩现象呢？&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;当&lt;code&gt;Redis&lt;/code&gt;在某一时间段内，出现大量的&lt;code&gt;key&lt;/code&gt;失效了，所以导致请求全部涌入到了数据库当中，此时数据库压力巨大，可能会导致崩溃。&lt;/p&gt;</description></item><item><title>Dead Lock</title><link>https://foreverool.github.io/posts/mysql/lock/dead-lock/</link><pubDate>Mon, 09 Mar 2026 23:42:41 +0800</pubDate><guid>https://foreverool.github.io/posts/mysql/lock/dead-lock/</guid><description>&lt;h1 id="mysql中的死锁"&gt;MySQL中的死锁&lt;/h1&gt;
@@ -75,7 +77,7 @@ note1 --&amp;gt; |&amp;#34;存储层级核心逻辑&amp;#34;| A
 &lt;p&gt;GMP在源代码中分散的位置很多，然后我是根据&lt;code&gt;ChatGPT&lt;/code&gt;搜索到&lt;code&gt;sr/runtime/proc.go&lt;/code&gt;这个文件中，然后找到了&lt;code&gt;m, g &lt;/code&gt;的使用，然后根据&lt;code&gt;m, g&lt;/code&gt;找到了其定义文件&lt;code&gt;src/runtime/runtime2.go&lt;/code&gt;&lt;/p&gt;</description></item><item><title>Redis持久化基础</title><link>https://foreverool.github.io/posts/redis/persistance/redis-persistance-base/</link><pubDate>Sun, 22 Feb 2026 07:29:36 +0800</pubDate><guid>https://foreverool.github.io/posts/redis/persistance/redis-persistance-base/</guid><description>&lt;h1 id="redis宕机之后快速恢复数据"&gt;Redis宕机之后快速恢复数据&lt;/h1&gt;
 &lt;h2 id="rdb内存快照"&gt;RDB内存快照&lt;/h2&gt;
 &lt;p&gt;内存快照就是指redis内存中的数据某一时刻的状态数据。将该状态的数据保存称RDB文件形式写入磁盘中。&lt;/p&gt;
-&lt;div class="mermaid" align="center" style="background-color: none; border-radius: 5px;"&gt;
+&lt;div class="mermaid" align="center" &gt;
 graph LR
 %% 节点定义
 REQ((写请求))
@@ -106,7 +108,7 @@ linkStyle default stroke:#5f9ea0,stroke-width:2px;
 &lt;p&gt;Redis通过定时执行RDB内存快照，而不是每次写数据的时候进行写入到磁盘中。&lt;/p&gt;</description></item><item><title>后续遍历</title><link>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/post-order/</link><pubDate>Fri, 20 Feb 2026 22:46:02 +0800</pubDate><guid>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/post-order/</guid><description>&lt;h1 id="后续遍历"&gt;后续遍历&lt;/h1&gt;
 &lt;p&gt;后续遍历二叉树的节点顺序为 先遍历左子树，然后遍历右子树，最后遍历根节点。&lt;/p&gt;
 &lt;p&gt;左-&amp;gt;右-&amp;gt;根&lt;/p&gt;
-&lt;div class="mermaid" align="center" style="background-color: none; border-radius: 5px;"&gt;
+&lt;div class="mermaid" align="center" &gt;
 graph TD
 A((10)) --&gt; B((5))
 A --&gt; C((15))
@@ -116,7 +118,7 @@ B --&gt; E((7))
 &lt;p&gt;上述二叉树后续遍历的节点顺序为：&lt;/p&gt;</description></item><item><title>中序遍历</title><link>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/in-order/</link><pubDate>Fri, 20 Feb 2026 22:45:57 +0800</pubDate><guid>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/in-order/</guid><description>&lt;h1 id="中序遍历"&gt;中序遍历&lt;/h1&gt;
 &lt;p&gt;二叉树的中序遍历顺序为优先遍历左子树，然后再遍历根元素，之后遍历右子树。&lt;/p&gt;
 &lt;p&gt;左-&amp;gt;中-&amp;gt;右的遍历顺序。&lt;/p&gt;
-&lt;div class="mermaid" align="center" style="background-color: none; border-radius: 5px;"&gt;
+&lt;div class="mermaid" align="center" &gt;
 graph TD
 A((10)) --&gt; B((5))
 A --&gt; C((15))
@@ -125,7 +127,7 @@ B --&gt; E((7))
 &lt;/div&gt;
 &lt;p&gt;上述二叉树其中序遍历节点顺序为：&lt;/p&gt;</description></item><item><title>前序遍历</title><link>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/pre-order/</link><pubDate>Fri, 20 Feb 2026 22:45:53 +0800</pubDate><guid>https://foreverool.github.io/posts/algorithms/binary-tree/dfs/pre-order/</guid><description>&lt;h1 id="前序遍历"&gt;前序遍历&lt;/h1&gt;
 &lt;p&gt;前序遍历主要是指中间节点的遍历顺序，其遍历节点的顺序为 中-&amp;gt;左-&amp;gt;右。&lt;/p&gt;
-&lt;div class="mermaid" align="center" style="background-color: none; border-radius: 5px;"&gt;
+&lt;div class="mermaid" align="center" &gt;
 graph TD
 A((10)) --&gt; B((5))
 A --&gt; C((15))

@@ -4,7 +4,7 @@
 &lt;p&gt;当&lt;code&gt;Redis&lt;/code&gt;在某一时间段内，出现大量的&lt;code&gt;key&lt;/code&gt;失效了，所以导致请求全部涌入到了数据库当中，此时数据库压力巨大，可能会导致崩溃。&lt;/p&gt;</description></item><item><title>Redis持久化基础</title><link>https://foreverool.github.io/posts/redis/persistance/redis-persistance-base/</link><pubDate>Sun, 22 Feb 2026 07:29:36 +0800</pubDate><guid>https://foreverool.github.io/posts/redis/persistance/redis-persistance-base/</guid><description>&lt;h1 id="redis宕机之后快速恢复数据"&gt;Redis宕机之后快速恢复数据&lt;/h1&gt;
 &lt;h2 id="rdb内存快照"&gt;RDB内存快照&lt;/h2&gt;
 &lt;p&gt;内存快照就是指redis内存中的数据某一时刻的状态数据。将该状态的数据保存称RDB文件形式写入磁盘中。&lt;/p&gt;
-&lt;div class="mermaid" align="center" style="background-color: none; border-radius: 5px;"&gt;
+&lt;div class="mermaid" align="center" &gt;
 graph LR
 %% 节点定义
 REQ((写请求))
