@@ -185,17 +185,18 @@ strong, b {
 
 img {
   display: block !important;
-  margin: 20px auto !important; // 居中并增加上下间距
+  margin: 1.5rem auto !important;
   
-  // 只设定最大宽度限制，不锁死高度
-  width: auto !important;
-  max-width: 600px !important;   // 限制最大宽度为 600px
-  height: auto !important;      // 关键：高度设为 auto，确保等比例
+  // 宽度自适应，最高不超过 80% 的容器宽度（视觉更舒适）
+  max-width: 80% !important; 
+  height: auto !important;
   
-  // 核心：将 cover 改为 contain 或直接删除
-  object-fit: contain !important; 
+  // 移除 object-fit，依靠 height: auto 保证不拉伸不裁剪
+  object-fit: scale-down !important; 
   
-  border: none !important;
+  // 增加一点设计感（可选）
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
   // 3. 修正文字说明
