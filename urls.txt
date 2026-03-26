@@ -33,6 +33,8 @@ https://foreverool.github.io/notes/golang-notes/100-go-mistakes/code-and-project
   https://foreverool.github.io/search/
   https://foreverool.github.io/search/
   https://foreverool.github.io/search/
+  https://foreverool.github.io/posts/pythons/module/import-module/
+  https://foreverool.github.io/posts/pythons/how-to-run-code/
   https://foreverool.github.io/posts/web/filter/bloom-filter/
   https://foreverool.github.io/posts/redis/cache-problems/cache-avalanche/
   https://foreverool.github.io/posts/mysql/lock/dead-lock/
