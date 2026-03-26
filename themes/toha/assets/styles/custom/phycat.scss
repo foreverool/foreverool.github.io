@@ -204,6 +204,16 @@ img {
   // 增加一点设计感（可选）
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+img:hover {
+  /* 放大 1.05 倍（即放大 5%），你可以根据需要调整数值 */
+  transform: scale(1.05);
+  /* 可选：增加一点阴影让图片看起来像“浮起来” */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  z-index: 10;
 }
 
   // 3. 修正文字说明
